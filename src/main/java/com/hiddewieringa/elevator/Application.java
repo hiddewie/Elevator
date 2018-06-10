@@ -1,4 +1,4 @@
-package nl.hiddewieringa.elevator;
+package com.hiddewieringa.elevator;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

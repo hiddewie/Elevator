@@ -8,6 +8,12 @@ buildscript {
     }
 }
 
+ext {
+    axonVersion = '3.2.2'
+    sqLiteVersion = '3.23.1'
+    mariaDbVersion = '1.5.7'
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -15,7 +21,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'gs-spring-boot'
-    version =  '0.1.0'
+    version = '0.1.0'
 }
 
 repositories {
@@ -26,10 +32,22 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    // Spring
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.xerial:sqlite-jdbc:3.23.1")
-
-    testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+
+//    // SQLite
+//    compile("org.xerial:sqlite-jdbc:${sqLiteVersion}")
+
+    // SQLite
+    compile("org.mariadb.jdbc:mariadb-java-client:${mariaDbVersion}")
+
+    // Axon
+    compile("org.axonframework:axon-core:${axonVersion}")
+    compile("org.axonframework:axon-spring-boot-autoconfigure:${axonVersion}")
+    testCompile("org.axonframework:axon-test:${axonVersion}")
+
+    // JUnit
+    testCompile("junit:junit")
 }
