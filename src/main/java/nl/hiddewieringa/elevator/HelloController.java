@@ -1,4 +1,4 @@
-package hello;
+package nl.hiddewieringa.elevator;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
