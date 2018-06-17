@@ -1,9 +1,15 @@
 package com.hiddewieringa.elevator.domain.elevator.model;
 
+import com.sun.xml.internal.ws.developer.Serialization;
+
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
-public abstract class Identity<T extends Serializable> {
+@MappedSuperclass
+public abstract class Identity<T extends Serializable> implements Serializable {
 
+    @Column
     private final T id;
 
     public Identity(T t) {
