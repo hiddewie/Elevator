@@ -32,7 +32,7 @@ public class ElevatorAggregateTest {
     public void call() {
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
         fixture.given(new ElevatorCreated(elevatorId))
-                .when(new CallElevator(elevatorId, floor))
-                .expectEvents(new ElevatorCalled(elevatorId));
+                .when(new CallElevator(elevatorId, 3))
+                .expectEvents(new ElevatorCalled(elevatorId, 3));
     }
 }
