@@ -1,11 +1,6 @@
 package com.hiddewieringa.elevator.domain.elevator.model
 
-import com.hiddewieringa.elevator.domain.elevator.command.CallElevator
-import com.hiddewieringa.elevator.domain.elevator.command.CloseDoors
-import com.hiddewieringa.elevator.domain.elevator.command.CreateElevator
-import com.hiddewieringa.elevator.domain.elevator.command.OpenDoors
-import com.hiddewieringa.elevator.domain.elevator.event.ElevatorCalled
-import com.hiddewieringa.elevator.domain.elevator.event.ElevatorCreated
+import com.hiddewieringa.elevator.domain.elevator.*
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.commandhandling.model.AggregateIdentifier
 import org.axonframework.commandhandling.model.AggregateLifecycle.apply
@@ -44,12 +39,12 @@ class ElevatorAggregate {
 
     @CommandHandler
     internal fun openDoors(openDoors: OpenDoors) {
-
+        apply(ElevatorDoorsOpened(openDoors.elevatorId))
     }
 
     @CommandHandler
     internal fun closeDoors(closeDoors: CloseDoors) {
-
+        apply(ElevatorDoorsClosed(closeDoors.elevatorId))
     }
 
 }

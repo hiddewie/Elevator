@@ -1,9 +1,9 @@
 package com.hiddewieringa.elevator.domain.elevator.model;
 
-import com.hiddewieringa.elevator.domain.elevator.command.CallElevator;
-import com.hiddewieringa.elevator.domain.elevator.command.CreateElevator;
-import com.hiddewieringa.elevator.domain.elevator.event.ElevatorCalled;
-import com.hiddewieringa.elevator.domain.elevator.event.ElevatorCreated;
+import com.hiddewieringa.elevator.domain.elevator.CallElevator;
+import com.hiddewieringa.elevator.domain.elevator.CreateElevator;
+import com.hiddewieringa.elevator.domain.elevator.ElevatorCalled;
+import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.Before;
