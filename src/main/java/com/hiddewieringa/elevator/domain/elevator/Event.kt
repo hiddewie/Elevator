@@ -3,8 +3,6 @@ package com.hiddewieringa.elevator.domain.elevator
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import org.axonframework.commandhandling.TargetAggregateIdentifier
 
-data class ElevatorCalled(@field:TargetAggregateIdentifier val elevatorId: ElevatorId, val floor: Long)
-
 data class ElevatorDoorsOpened(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 
 data class ElevatorDoorsClosed(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)

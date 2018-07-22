@@ -15,6 +15,8 @@ class ElevatorAggregate {
 
     private var floor = 0L
 
+    private var doorsOpened = false
+
     private constructor()
 
     @CommandHandler
@@ -23,28 +25,50 @@ class ElevatorAggregate {
     }
 
     @EventHandler
-    fun on(event: ElevatorCreated) {
+    fun handle(event: ElevatorCreated) {
         this.id = event.elevatorId
     }
 
     @CommandHandler
-    fun call(command: CallElevator) {
-        apply(ElevatorCalled(command.elevatorId, command.floor))
+    fun handle(command: OpenDoors) {
+        if (doorsOpened) {
+            throw IllegalArgumentException("Doors already open")
+        }
+        apply(ElevatorDoorsOpened(command.elevatorId))
     }
 
     @EventHandler
-    fun elevatorCalled(event: ElevatorCalled) {
-        this.floor = event.floor
+    fun handle(event: ElevatorDoorsOpened) {
+        doorsOpened = true
     }
 
     @CommandHandler
-    internal fun openDoors(openDoors: OpenDoors) {
-        apply(ElevatorDoorsOpened(openDoors.elevatorId))
+    fun handle(command: CloseDoors) {
+        if (!doorsOpened) {
+            throw IllegalArgumentException("Doors already closed")
+        }
+        apply(ElevatorDoorsClosed(command.elevatorId))
+    }
+
+    @EventHandler
+    fun handle(event: ElevatorDoorsClosed) {
+        doorsOpened = false
     }
 
     @CommandHandler
-    internal fun closeDoors(closeDoors: CloseDoors) {
-        apply(ElevatorDoorsClosed(closeDoors.elevatorId))
+    fun handle(command: CallElevator) {
+        if (floor == command.floor) {
+            // Floor is same as calling floor
+            apply(ElevatorMovedToFloor(command.elevatorId, floor))
+            return;
+        }
+        while (floor != command.floor) {
+            apply(ElevatorMovedToFloor(command.elevatorId, if (floor > command.floor) floor - 1 else floor + 1))
+        }
     }
 
+    @EventHandler
+    fun handle(event: ElevatorMovedToFloor) {
+        floor = event.floor
+    }
 }

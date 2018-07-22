@@ -1,4 +1,6 @@
 
+This project models persons and elevators, and their interations. The goal is having a small project rich with domain logic, on which a CQRS architecture is well suited.
+
 ## Framework
 
 Axon Framework version 3 is used for all Event Sourcing and CQRS related actions, in combination with Spring Boot 2 for easy HTTP interfacing.

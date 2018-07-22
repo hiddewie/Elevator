@@ -15,7 +15,9 @@ open class Application {
     private val logger = LoggerFactory.getLogger(Application::class.java)
 
     @Bean
-    open fun commandLineRunner(ctx: ApplicationContext) = CommandLineRunner({ logger.info("Listening on port 8080!") })
+    open fun commandLineRunner(ctx: ApplicationContext) = CommandLineRunner {
+        logger.info("Listening on port 8080!")
+    }
 
 }
 

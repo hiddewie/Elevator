@@ -1,6 +1,5 @@
 package com.hiddewieringa.elevator.domain.person.model
 
-import com.hiddewieringa.elevator.domain.elevator.*
 import com.hiddewieringa.elevator.domain.person.*
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.commandhandling.model.AggregateIdentifier
@@ -16,7 +15,6 @@ class PersonAggregate {
 
     private var floor = 0L;
     private var requestedFloor = 0L;
-
     private var inElevator = false;
 
     private constructor()
@@ -27,14 +25,14 @@ class PersonAggregate {
     }
 
     @EventHandler
-    fun personArrived(event: PersonArrived) {
+    fun handle(event: PersonArrived) {
         this.id = event.personId
         this.floor = event.floor
         this.requestedFloor = event.requestedFloor
     }
 
     @CommandHandler
-    fun enterElevator(command: EnterElevator) {
+    fun handle(command: EnterElevator) {
         if (inElevator) {
             throw IllegalArgumentException("Already in elevator")
         }
@@ -42,12 +40,12 @@ class PersonAggregate {
     }
 
     @EventHandler
-    fun elevatorEntered(event: PersonEnteredElevator) {
+    fun handle(event: PersonEnteredElevator) {
         inElevator = true
     }
 
     @CommandHandler
-    fun leaveElevator(command: LeaveElevator) {
+    fun handle(command: LeaveElevator) {
         if (!inElevator) {
             throw IllegalArgumentException("Not in elevator")
         }
@@ -55,12 +53,7 @@ class PersonAggregate {
     }
 
     @EventHandler
-    fun elevatorLeft(event: PersonLeftElevator) {
+    fun handle(event: PersonLeftElevator) {
         inElevator = false
-    }
-
-    @EventHandler
-    fun arrivedAtFloor(event: PersonArrivedAtFloor) {
-        floor = event.floor
     }
 }

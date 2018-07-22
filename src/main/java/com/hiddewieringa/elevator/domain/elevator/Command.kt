@@ -9,6 +9,4 @@ data class CloseDoors(@field:TargetAggregateIdentifier val elevatorId: ElevatorI
 
 data class CreateElevator(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 
-data class MoveToFloor(@field:TargetAggregateIdentifier val elevatorId: ElevatorId, val floor: Long)
-
 data class OpenDoors(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
