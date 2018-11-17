@@ -17,7 +17,7 @@ class ElevatorAggregate {
 
     private var doorsOpened = false
 
-    private constructor()
+    constructor()
 
     @CommandHandler
     constructor(command: CreateElevator) {
@@ -60,8 +60,9 @@ class ElevatorAggregate {
         if (floor == command.floor) {
             // Floor is same as calling floor
             apply(ElevatorMovedToFloor(command.elevatorId, floor))
-            return;
+            return
         }
+
         while (floor != command.floor) {
             apply(ElevatorMovedToFloor(command.elevatorId, if (floor > command.floor) floor - 1 else floor + 1))
         }

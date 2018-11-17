@@ -2,16 +2,12 @@ package com.hiddewieringa.elevator.domain.elevator.model;
 
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed;
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened;
-import com.hiddewieringa.elevator.domain.elevator.query.ElevatorQueryHandler;
 import com.hiddewieringa.elevator.domain.saga.ElevatorDoorsSaga;
 import org.axonframework.test.saga.SagaTestFixture;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Duration;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 public class ElevatorDoorsSagaTest {

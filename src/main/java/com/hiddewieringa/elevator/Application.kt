@@ -3,7 +3,6 @@ package com.hiddewieringa.elevator
 import org.slf4j.LoggerFactory
 import org.springframework.boot.Banner
 import org.springframework.boot.CommandLineRunner
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
@@ -25,5 +24,4 @@ fun main(args: Array<String>) {
     runApplication<Application>(*args) {
         setBannerMode(Banner.Mode.OFF)
     }
-    SpringApplication.run(Application::class.java, *args)
 }

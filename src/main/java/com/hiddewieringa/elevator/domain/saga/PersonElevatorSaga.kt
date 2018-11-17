@@ -2,9 +2,9 @@ package com.hiddewieringa.elevator.domain.saga
 
 import com.hiddewieringa.elevator.domain.elevator.*
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.elevator.query.ElevatorQueryHandler
 import com.hiddewieringa.elevator.domain.person.*
 import com.hiddewieringa.elevator.domain.person.model.PersonId
+import com.hiddewieringa.elevator.query.ElevatorQueryService
 import org.axonframework.commandhandling.callbacks.LoggingCallback
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.eventhandling.saga.SagaEventHandler
@@ -22,7 +22,7 @@ class PersonElevatorSaga {
 
     @Autowired
     @Transient
-    private lateinit var elevatorQueryHandler: ElevatorQueryHandler
+    private lateinit var elevatorQueryService: ElevatorQueryService
 
     private lateinit var personId: PersonId
     private lateinit var elevatorId: ElevatorId
@@ -37,7 +37,8 @@ class PersonElevatorSaga {
     @SagaEventHandler(associationProperty = "personId")
     fun start(event: PersonArrived) {
         personId = event.personId
-        elevatorId = elevatorQueryHandler.active()[0]
+        println("Person arrived, using elevator ${elevatorQueryService.active().first()}")
+        elevatorId = ElevatorId(elevatorQueryService.active().first().id)
         SagaLifecycle.associateWith("elevatorId", elevatorId.toString())
 
         personFloor = event.floor

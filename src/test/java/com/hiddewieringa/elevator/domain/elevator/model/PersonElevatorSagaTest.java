@@ -1,10 +1,11 @@
 package com.hiddewieringa.elevator.domain.elevator.model;
 
 import com.hiddewieringa.elevator.domain.elevator.*;
-import com.hiddewieringa.elevator.domain.elevator.query.ElevatorQueryHandler;
 import com.hiddewieringa.elevator.domain.person.*;
 import com.hiddewieringa.elevator.domain.person.model.PersonId;
 import com.hiddewieringa.elevator.domain.saga.PersonElevatorSaga;
+import com.hiddewieringa.elevator.projection.entity.elevator.Elevator;
+import com.hiddewieringa.elevator.query.ElevatorQueryService;
 import org.axonframework.test.saga.SagaTestFixture;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
@@ -23,11 +24,11 @@ public class PersonElevatorSagaTest {
         fixture = new SagaTestFixture<>(PersonElevatorSaga.class);
     }
 
-    private ElevatorQueryHandler elevatorQueryHandler(ElevatorId elevatorId) {
-        return new ElevatorQueryHandler() {
+    private ElevatorQueryService elevatorQueryHandler(ElevatorId elevatorId) {
+        return new ElevatorQueryService() {
             @NotNull
-            public List<ElevatorId> active() {
-                return Collections.singletonList(elevatorId);
+            public List<Elevator> active() {
+                return Collections.singletonList(new Elevator(elevatorId.getId(), false));
             }
         };
     }

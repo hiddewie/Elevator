@@ -1,4 +1,6 @@
 
+# Elevator
+
 This project models persons and elevators, and their interations. The goal is having a small project rich with domain logic, on which a CQRS architecture is well suited.
 
 ## Framework
