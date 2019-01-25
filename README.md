@@ -13,6 +13,7 @@ Axon Framework version 3 is used for all Event Sourcing and CQRS related actions
 
 - Can travel between floors, one at a time
 - Can open and close doors
+- Will automatically close the door if it has been opened for some time
 
 #### Person
 
