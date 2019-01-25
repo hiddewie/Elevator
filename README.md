@@ -1,6 +1,9 @@
 
 # Elevator
 
+[![Build Status](https://semaphoreci.com/api/v1/hiddewie/elevator/branches/master/badge.svg)](https://semaphoreci.com/hiddewie/elevator) [![Maintainability](https://api.codeclimate.com/v1/badges/641409c7c9336f1c0388/maintainability)](https://codeclimate.com/github/hiddewie/Elevator/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/641409c7c9336f1c0388/test_coverage)](https://codeclimate.com/github/hiddewie/Elevator/test_coverage)
+
+
 This project models persons and elevators, and their interations. The goal is having a small project rich with domain logic, on which a CQRS architecture is well suited.
 
 ## Framework
