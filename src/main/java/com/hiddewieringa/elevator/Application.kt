@@ -2,7 +2,6 @@ package com.hiddewieringa.elevator
 
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.spring.eventhandling.scheduling.java.SimpleEventSchedulerFactoryBean
-import org.omg.CORBA.Object
 import org.slf4j.LoggerFactory
 import org.springframework.boot.Banner
 import org.springframework.boot.CommandLineRunner
@@ -32,7 +31,7 @@ open class Listener {
     val logger = LoggerFactory.getLogger(Listener::class.java)
 
     @EventHandler
-    open fun on(o: Object) {
+    open fun on(o: Any) {
         logger.info("Event ${o}")
     }
 }
