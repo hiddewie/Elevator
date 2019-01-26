@@ -1,19 +1,25 @@
 package com.hiddewieringa.elevator.domain.elevator.model;
 
 import com.hiddewieringa.elevator.domain.elevator.*;
+import com.hiddewieringa.elevator.domain.elevator.query.ActiveQuery;
+import com.hiddewieringa.elevator.domain.elevator.query.QueryFloor;
 import com.hiddewieringa.elevator.domain.person.*;
 import com.hiddewieringa.elevator.domain.person.model.PersonId;
 import com.hiddewieringa.elevator.domain.saga.PersonElevatorSaga;
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator;
-import com.hiddewieringa.elevator.query.ElevatorQueryService;
+import org.axonframework.queryhandling.QueryGateway;
+import org.axonframework.queryhandling.SubscriptionQueryBackpressure;
+import org.axonframework.queryhandling.SubscriptionQueryResult;
+import org.axonframework.queryhandling.responsetypes.ResponseType;
 import org.axonframework.test.saga.SagaTestFixture;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 public class PersonElevatorSagaTest {
 
@@ -24,11 +30,29 @@ public class PersonElevatorSagaTest {
         fixture = new SagaTestFixture<>(PersonElevatorSaga.class);
     }
 
-    private ElevatorQueryService elevatorQueryHandler(ElevatorId elevatorId) {
-        return new ElevatorQueryService() {
-            @NotNull
-            public List<Elevator> active() {
-                return Collections.singletonList(new Elevator(elevatorId.getId(), false));
+    private QueryGateway queryGateway(ElevatorId elevatorId) {
+        return new QueryGateway() {
+            @Override
+            public <R, Q> CompletableFuture<R> query(String queryName, Q query, ResponseType<R> responseType) {
+                if (query instanceof ActiveQuery) {
+                    return (CompletableFuture<R>) CompletableFuture.completedFuture(Collections.singletonList(new Elevator(null, elevatorId.getId(), 0, false)));
+
+                } else if (query instanceof QueryFloor){
+                    return (CompletableFuture<R>) CompletableFuture.completedFuture(Collections.singletonList(new Elevator(null, elevatorId.getId(), 0, false)));
+
+                }
+
+                return CompletableFuture.completedFuture(null);
+            }
+
+            @Override
+            public <R, Q> Stream<R> scatterGather(String queryName, Q query, ResponseType<R> responseType, long timeout, TimeUnit timeUnit) {
+                return null;
+            }
+
+            @Override
+            public <Q, I, U> SubscriptionQueryResult<I, U> subscriptionQuery(String queryName, Q query, ResponseType<I> initialResponseType, ResponseType<U> updateResponseType, SubscriptionQueryBackpressure backpressure, int updateBufferSize) {
+                return null;
             }
         };
     }
@@ -37,7 +61,7 @@ public class PersonElevatorSagaTest {
     public void create() {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenNoPriorActivity()
                 .whenPublishingA(new PersonArrived(personId, 0, 2))
@@ -51,7 +75,7 @@ public class PersonElevatorSagaTest {
     public void movingToFloor() {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .whenPublishingA(new ElevatorMovedToFloor(elevatorId, 1))
@@ -63,7 +87,7 @@ public class PersonElevatorSagaTest {
     public void movedToFloor() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -76,7 +100,7 @@ public class PersonElevatorSagaTest {
     public void openDoors() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -93,7 +117,7 @@ public class PersonElevatorSagaTest {
     public void openAndCloseDoors() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -108,7 +132,7 @@ public class PersonElevatorSagaTest {
     public void closeDoors() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -123,7 +147,7 @@ public class PersonElevatorSagaTest {
     public void moveElevatorWithPerson() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -140,7 +164,7 @@ public class PersonElevatorSagaTest {
     public void elevatorArrivesWithPerson() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -158,7 +182,7 @@ public class PersonElevatorSagaTest {
     public void personLeaves() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -177,7 +201,7 @@ public class PersonElevatorSagaTest {
     public void emptyElevatorDoorsClose() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -197,7 +221,7 @@ public class PersonElevatorSagaTest {
     public void emptyElevatorDone() throws Exception {
         PersonId personId = new PersonId(UUID.randomUUID());
         ElevatorId elevatorId = new ElevatorId(UUID.randomUUID());
-        fixture.registerResource(elevatorQueryHandler(elevatorId));
+        fixture.registerResource(queryGateway(elevatorId));
 
         fixture.givenAPublished(new PersonArrived(personId, 0, 2))
                 .andThenAPublished(new ElevatorMovedToFloor(elevatorId, 1))
@@ -213,6 +237,4 @@ public class PersonElevatorSagaTest {
                 .expectActiveSagas(0)
                 .expectNoDispatchedCommands();
     }
-
-
 }

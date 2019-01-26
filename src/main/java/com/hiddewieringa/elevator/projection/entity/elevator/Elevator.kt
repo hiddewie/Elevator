@@ -1,17 +1,21 @@
 package com.hiddewieringa.elevator.projection.entity.elevator
 
+import org.hibernate.annotations.Type
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
+@Table(name = "elevator")
 class Elevator(
         @Id
-        val id: UUID,
+        @GeneratedValue
+        var id: Long? = null,
 
-        val containsPerson: Boolean
-) {
-        override fun toString(): String {
-                return "Elevator(id=$id, containsPerson=$containsPerson)"
-        }
-}
+        @Type(type = "org.hibernate.type.UUIDBinaryType")
+        @Column(length = 16)
+        var uuid: UUID,
+
+        var floor: Long,
+
+        var containsPerson: Boolean
+)

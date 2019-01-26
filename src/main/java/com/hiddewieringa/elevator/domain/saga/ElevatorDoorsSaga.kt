@@ -14,21 +14,17 @@ import java.time.Duration
 @Saga
 class ElevatorDoorsSaga {
 
-    @Autowired
-    @Transient
-    private lateinit var eventScheduler: EventScheduler
-
     private lateinit var scheduleToken: ScheduleToken
 
     @StartSaga
     @SagaEventHandler(associationProperty = "elevatorId")
-    fun opened(event: ElevatorDoorsOpened) {
+    fun opened(event: ElevatorDoorsOpened, eventScheduler: EventScheduler) {
         scheduleToken = eventScheduler.schedule(Duration.ofSeconds(10), ElevatorDoorsClosed(event.elevatorId))
     }
 
     @EndSaga
     @SagaEventHandler(associationProperty = "elevatorId")
-    fun closed(event: ElevatorDoorsClosed) {
+    fun closed(event: ElevatorDoorsClosed, eventScheduler: EventScheduler) {
         eventScheduler.cancelSchedule(scheduleToken)
     }
 }

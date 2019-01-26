@@ -1,40 +1,46 @@
 package com.hiddewieringa.elevator.projection
 
 import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
+import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
 import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
 import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import com.hiddewieringa.elevator.projection.entity.elevator.ElevatorRepository
 import org.axonframework.eventhandling.EventHandler
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 open class ElevatorProjector {
 
-    @Autowired
-    private lateinit var elevatorRepository: ElevatorRepository
-
     @EventHandler
-    fun create(event: ElevatorCreated) {
-        elevatorRepository.save(Elevator(event.elevatorId.id, false))
+    fun create(event: ElevatorCreated, elevatorRepository: ElevatorRepository) {
+        elevatorRepository.save(Elevator(uuid = event.elevatorId.id, floor = 0, containsPerson = false))
     }
 
     @EventHandler
-    fun enter(event: PersonEnteredElevator) {
+    open fun enter(event: PersonEnteredElevator, elevatorRepository: ElevatorRepository) {
         val elevators = elevatorRepository.findAll()
         elevators.forEach {
-            elevatorRepository.delete(it)
-            elevatorRepository.save(Elevator(it.id, true))
+            it.containsPerson = true
+            elevatorRepository.save(it)
         }
     }
 
     @EventHandler
-    fun leave(event: PersonLeftElevator) {
+    open fun leave(event: PersonLeftElevator, elevatorRepository: ElevatorRepository) {
         val elevators = elevatorRepository.findAll()
         elevators.forEach {
-            elevatorRepository.delete(it)
-            elevatorRepository.save(Elevator(it.id, false))
+            it.containsPerson = false
+            elevatorRepository.save(it)
+        }
+    }
+
+    @EventHandler
+    open fun floor(event: ElevatorMovedToFloor, elevatorRepository: ElevatorRepository) {
+        elevatorRepository.findByUuid(event.elevatorId.id).ifPresent {
+            it.floor = event.floor
+            elevatorRepository.save(it)
         }
     }
 }

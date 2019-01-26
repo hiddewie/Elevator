@@ -19,7 +19,7 @@ plugins {
 }
 
 ext {
-    axonVersion = '3.2.2'
+    axonVersion = '3.4.2'
     mariaDbVersion = '1.5.7'
 }
 
