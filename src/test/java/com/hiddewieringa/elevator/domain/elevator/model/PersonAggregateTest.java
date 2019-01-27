@@ -1,6 +1,5 @@
 package com.hiddewieringa.elevator.domain.elevator.model;
 
-import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated;
 import com.hiddewieringa.elevator.domain.person.*;
 import com.hiddewieringa.elevator.domain.person.model.PersonAggregate;
 import com.hiddewieringa.elevator.domain.person.model.PersonId;

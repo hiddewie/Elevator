@@ -8,7 +8,6 @@ import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import com.hiddewieringa.elevator.projection.entity.elevator.ElevatorRepository
 import org.axonframework.eventhandling.EventHandler
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 open class ElevatorProjector {
