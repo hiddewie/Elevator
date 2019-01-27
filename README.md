@@ -8,7 +8,17 @@ This project models persons and elevators, and their interations. The goal is ha
 
 ## Framework
 
-Axon Framework version 3 is used for all Event Sourcing and CQRS related actions, in combination with Spring Boot 2 for easy HTTP interfacing.
+Axon Framework version 4 is used for all Event Sourcing and CQRS related actions, in combination with Spring Boot 2 for easy HTTP interfacing.
+
+## Getting started
+
+#### Test
+
+Run the command `./gradlew test`.
+
+#### Run
+
+Run the command `./gradlew bootRun`. Then web server will run on port 8080.
 
 ## Model
 

@@ -1,7 +1,7 @@
 package com.hiddewieringa.elevator.domain.elevator
 
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import org.axonframework.commandhandling.TargetAggregateIdentifier
+import org.axonframework.modelling.command.TargetAggregateIdentifier
 
 data class ElevatorDoorsOpened(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 

@@ -19,7 +19,7 @@ plugins {
 }
 
 ext {
-    axonVersion = '3.4.2'
+    axonVersion = '4.0.3'
     mariaDbVersion = '1.5.7'
 }
 
@@ -58,8 +58,9 @@ dependencies {
     compile("org.mariadb.jdbc:mariadb-java-client:${mariaDbVersion}")
 
     // Axon
-    compile("org.axonframework:axon-core:${axonVersion}")
-    compile("org.axonframework:axon-spring-boot-autoconfigure:${axonVersion}")
+    compile("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
+        exclude group: 'org.axonframework', module: 'axon-server-connector'
+    }
     testCompile("org.axonframework:axon-test:${axonVersion}")
 
     // JUnit

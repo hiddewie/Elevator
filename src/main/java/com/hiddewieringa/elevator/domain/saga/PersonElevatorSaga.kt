@@ -8,11 +8,11 @@ import com.hiddewieringa.elevator.domain.person.model.PersonId
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import org.axonframework.commandhandling.callbacks.LoggingCallback
 import org.axonframework.commandhandling.gateway.CommandGateway
-import org.axonframework.eventhandling.saga.SagaEventHandler
-import org.axonframework.eventhandling.saga.SagaLifecycle
-import org.axonframework.eventhandling.saga.StartSaga
+import org.axonframework.messaging.responsetypes.ResponseTypes
+import org.axonframework.modelling.saga.SagaEventHandler
+import org.axonframework.modelling.saga.SagaLifecycle
+import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
-import org.axonframework.queryhandling.responsetypes.ResponseTypes
 import org.axonframework.spring.stereotype.Saga
 
 @Saga

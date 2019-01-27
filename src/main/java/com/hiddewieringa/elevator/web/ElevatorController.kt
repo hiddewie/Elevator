@@ -8,8 +8,8 @@ import com.hiddewieringa.elevator.domain.elevator.query.FloorResult
 import com.hiddewieringa.elevator.domain.elevator.query.QueryFloor
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import org.axonframework.commandhandling.gateway.CommandGateway
+import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
-import org.axonframework.queryhandling.responsetypes.ResponseTypes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

@@ -1,7 +1,7 @@
 package com.hiddewieringa.elevator.domain.person
 
 import com.hiddewieringa.elevator.domain.person.model.PersonId
-import org.axonframework.commandhandling.TargetAggregateIdentifier
+import org.axonframework.modelling.command.TargetAggregateIdentifier
 
 data class PersonArrives(@field:TargetAggregateIdentifier val personId: PersonId, val floor: Long, val requestedFloor: Long) {
     init {
