@@ -2,11 +2,15 @@ package com.hiddewieringa.elevator.projection
 
 import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
 import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
+import com.hiddewieringa.elevator.domain.elevator.query.ActiveQuery
+import com.hiddewieringa.elevator.domain.elevator.query.FloorResult
+import com.hiddewieringa.elevator.domain.elevator.query.QueryFloor
 import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
 import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import com.hiddewieringa.elevator.projection.entity.elevator.ElevatorRepository
 import org.axonframework.eventhandling.EventHandler
+import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Service
 
 @Service
@@ -42,4 +46,15 @@ open class ElevatorProjector {
             elevatorRepository.save(it)
         }
     }
+
+    @QueryHandler
+    open fun active(query: ActiveQuery, elevatorRepository: ElevatorRepository) =
+            elevatorRepository.findAll()
+
+    @QueryHandler
+    open fun floor(query: QueryFloor, elevatorRepository: ElevatorRepository) =
+            elevatorRepository
+                    .findByUuid(query.elevatorId.id)
+                    .map(Elevator::floor).orElse(null)
+                    .let(::FloorResult)
 }

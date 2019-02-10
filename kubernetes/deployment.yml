@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: elevator
+  name: elevator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: elevator
+  template:
+    metadata:
+      labels:
+        app: elevator
+    spec:
+      containers:
+      - name: elevator
+        image: elevator:v4
+        ports:
+          - containerPort: 8080
+        env:
+          - name: DB_HOST
+            value: database-service
+          - name: DB_USER
+            value: elevator
+          - name: DB_PASS
+            value: elevator
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /status/live
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          # timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /status/ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 3

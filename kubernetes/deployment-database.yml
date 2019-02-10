@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: database
+  name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - name: database
+        image: mariadb:10
+        ports:
+          - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: root
+#          - name: MYSQL_RANDOM_ROOT_PASSWORD
+#            value: yes
+          - name: MYSQL_USER
+            value: elevator
+          - name: MYSQL_PASSWORD
+            value: elevator
+          - name: MYSQL_DATABASE
+            value: elevator
