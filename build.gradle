@@ -1,13 +1,13 @@
 buildscript {
     ext {
-        kotlin_version = '1.3.11'
+        kotlin_version = '1.3.21'
     }
 
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.2.RELEASE'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
     }
@@ -23,6 +23,7 @@ plugins {
 ext {
     axonVersion = '4.0.3'
     mariaDbVersion = '1.5.7'
+    javassistVersion = '3.23.1-GA'
 }
 
 apply plugin: 'java'
@@ -41,14 +42,17 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 dependencies {
     // Spring
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    // Java 11 Javassist
+    compile("org.javassist:javassist:${javassistVersion}")
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
