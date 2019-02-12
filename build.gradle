@@ -86,10 +86,40 @@ compileTestKotlin {
 }
 
 jacoco {
-    toolVersion = '0.8.1'
+    toolVersion = '0.8.2'
 }
 jacocoTestReport {
     reports {
         xml.enabled true
+    }
+}
+
+if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+    def srcModule = "src/main/kotlin"
+    def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
+    if (moduleInfo.exists()) {
+        sourceSets {
+            module {
+                java {
+                    srcDirs = [srcModule]
+                    compileClasspath = main.compileClasspath
+                    sourceCompatibility = '9'
+                    targetCompatibility = '9'
+                }
+            }
+            main {
+                kotlin { srcDirs += [srcModule] }
+            }
+        }
+
+        compileModuleJava.configure {
+            dependsOn compileKotlin
+            destinationDir = compileKotlin.destinationDir
+            doFirst {
+                options.compilerArgs = ['--module-path', classpath.asPath,]
+                classpath = files()
+            }
+        }
+        jar.dependsOn compileModuleJava
     }
 }
