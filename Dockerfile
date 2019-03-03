@@ -5,7 +5,7 @@ ENV APP_HOME=/usr/src/app/
 
 WORKDIR $APP_HOME
 
-COPY build.gradle settings.gradle gradlew $APP_HOME
+COPY build.gradle.kts settings.gradle.kts gradlew $APP_HOME
 COPY gradle $APP_HOME/gradle
 RUN ./gradlew build || return 0
 
@@ -22,8 +22,6 @@ WORKDIR /usr/app
 
 RUN ls -la
 
-#ENV DB_HOST 10.0.75.1
-
 EXPOSE 8080
 
-CMD java -jar /usr/app/elevator-0.1.0.jar
+CMD java -jar /usr/app/Elevator-0.1.0.jar
