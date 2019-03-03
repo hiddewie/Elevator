@@ -11,7 +11,8 @@ import org.axonframework.spring.stereotype.Aggregate
 class ElevatorAggregate {
 
     @AggregateIdentifier
-    private var id: ElevatorId? = null
+    private lateinit var id: ElevatorId
+    private lateinit var groupId: ElevatorGroupId
 
     private var floor = 0L
 
@@ -21,18 +22,20 @@ class ElevatorAggregate {
 
     @CommandHandler
     constructor(command: CreateElevator) {
-        apply(ElevatorCreated(command.elevatorId))
+        apply(ElevatorCreated(command.elevatorId, command.groupId, command.initalFloor, command.initialDirection))
     }
 
     @EventHandler
     fun handle(event: ElevatorCreated) {
         this.id = event.elevatorId
+        this.groupId = event.groupId
+        this.floor = event.initalFloor
     }
 
     @CommandHandler
     fun handle(command: OpenDoors) {
         if (doorsOpened) {
-            throw IllegalArgumentException("Doors already open")
+            return
         }
         apply(ElevatorDoorsOpened(command.elevatorId))
     }
@@ -45,7 +48,7 @@ class ElevatorAggregate {
     @CommandHandler
     fun handle(command: CloseDoors) {
         if (!doorsOpened) {
-            throw IllegalArgumentException("Doors already closed")
+            return
         }
         apply(ElevatorDoorsClosed(command.elevatorId))
     }
@@ -55,21 +58,13 @@ class ElevatorAggregate {
         doorsOpened = false
     }
 
-    @CommandHandler
-    fun handle(command: CallElevator) {
-        if (floor == command.floor) {
-            // Floor is same as calling floor
-            apply(ElevatorMovedToFloor(command.elevatorId, floor))
-            return
-        }
-
-        while (floor != command.floor) {
-            apply(ElevatorMovedToFloor(command.elevatorId, if (floor > command.floor) floor - 1 else floor + 1))
-        }
-    }
-
     @EventHandler
     fun handle(event: ElevatorMovedToFloor) {
         floor = event.floor
+    }
+
+    @CommandHandler
+    fun handle(event: AssignElevatorTarget) {
+        apply(ElevatorTargetAssigned(event.elevatorId, event.floor))
     }
 }

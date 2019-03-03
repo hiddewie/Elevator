@@ -2,6 +2,8 @@ package com.hiddewieringa.elevator.projection
 
 import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
 import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetAssigned
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetRemoved
 import com.hiddewieringa.elevator.domain.elevator.query.ActiveQuery
 import com.hiddewieringa.elevator.domain.elevator.query.FloorResult
 import com.hiddewieringa.elevator.domain.elevator.query.QueryFloor
@@ -18,14 +20,22 @@ open class ElevatorProjector {
 
     @EventHandler
     fun create(event: ElevatorCreated, elevatorRepository: ElevatorRepository) {
-        elevatorRepository.save(Elevator(uuid = event.elevatorId.id, floor = 0, containsPerson = false))
+        elevatorRepository.save(
+            Elevator(
+                uuid = event.elevatorId.id,
+                group = event.groupId.id,
+                floor = 0,
+                numberOfPersons = 0,
+                numberOfTargets = 0
+            )
+        )
     }
 
     @EventHandler
     open fun enter(event: PersonEnteredElevator, elevatorRepository: ElevatorRepository) {
         val elevators = elevatorRepository.findAll()
         elevators.forEach {
-            it.containsPerson = true
+            it.numberOfPersons++
             elevatorRepository.save(it)
         }
     }
@@ -34,7 +44,7 @@ open class ElevatorProjector {
     open fun leave(event: PersonLeftElevator, elevatorRepository: ElevatorRepository) {
         val elevators = elevatorRepository.findAll()
         elevators.forEach {
-            it.containsPerson = false
+            it.numberOfPersons--
             elevatorRepository.save(it)
         }
     }
@@ -47,14 +57,30 @@ open class ElevatorProjector {
         }
     }
 
+    @EventHandler
+    open fun floor(event: ElevatorTargetAssigned, elevatorRepository: ElevatorRepository) {
+        elevatorRepository.findByUuid(event.elevatorId.id).ifPresent {
+            it.numberOfTargets++
+            elevatorRepository.save(it)
+        }
+    }
+
+    @EventHandler
+    open fun floor(event: ElevatorTargetRemoved, elevatorRepository: ElevatorRepository) {
+        elevatorRepository.findByUuid(event.elevatorId.id).ifPresent {
+            it.numberOfTargets--
+            elevatorRepository.save(it)
+        }
+    }
+
     @QueryHandler
     open fun active(query: ActiveQuery, elevatorRepository: ElevatorRepository) =
-            elevatorRepository.findAll()
+        elevatorRepository.findAll()
 
     @QueryHandler
     open fun floor(query: QueryFloor, elevatorRepository: ElevatorRepository) =
-            elevatorRepository
-                    .findByUuid(query.elevatorId.id)
-                    .map(Elevator::floor).orElse(null)
-                    .let(::FloorResult)
+        elevatorRepository
+            .findByUuid(query.elevatorId.id)
+            .map(Elevator::floor).orElse(null)
+            .let(::FloorResult)
 }

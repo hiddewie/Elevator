@@ -1,7 +1,6 @@
 package com.hiddewieringa.elevator
 
 import org.axonframework.eventhandling.EventHandler
-import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.spring.eventhandling.scheduling.java.SimpleEventSchedulerFactoryBean
 import org.slf4j.LoggerFactory
 import org.springframework.boot.Banner
