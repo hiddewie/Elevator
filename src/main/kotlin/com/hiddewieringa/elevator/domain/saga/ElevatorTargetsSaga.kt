@@ -5,11 +5,11 @@ import com.hiddewieringa.elevator.domain.elevator.model.ElevatorDirection
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import org.axonframework.commandhandling.callbacks.LoggingCallback
 import org.axonframework.commandhandling.gateway.CommandGateway
-import org.axonframework.eventhandling.EventBus
-import org.axonframework.eventhandling.GenericEventMessage
+import org.axonframework.eventhandling.scheduling.EventScheduler
 import org.axonframework.modelling.saga.SagaEventHandler
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.spring.stereotype.Saga
+import java.time.Duration
 
 @Saga
 class ElevatorTargetsSaga {
@@ -21,6 +21,8 @@ class ElevatorTargetsSaga {
 
     private var doorsOpened = false
 
+    private var underway = false
+
     @StartSaga
     @SagaEventHandler(associationProperty = "elevatorId")
     fun created(event: ElevatorCreated) {
@@ -30,11 +32,11 @@ class ElevatorTargetsSaga {
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")
-    fun targetAssigned(event: ElevatorTargetAssigned, eventBus: EventBus) {
+    fun targetAssigned(event: ElevatorTargetAssigned, scheduler: EventScheduler) {
         targetFloors.add(event.floor)
 
         if (!doorsOpened) {
-            moveToNextFloorIfAvailableTarget(eventBus)
+            moveToNextFloorIfAvailableTarget(scheduler)
         }
     }
 
@@ -44,26 +46,27 @@ class ElevatorTargetsSaga {
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")
-    fun elevatorMoved(event: ElevatorMovedToFloor, eventBus: EventBus, commandGateway: CommandGateway) {
+    fun elevatorMoved(event: ElevatorMovedToFloor, commandGateway: CommandGateway) {
         floor = event.floor
+        underway = false
 
         targetFloors.remove(event.floor)
         commandGateway.send(OpenDoors(elevatorId), LoggingCallback.INSTANCE)
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")
-    fun doorsOpened(event: ElevatorDoorsOpened, eventBus: EventBus) {
+    fun doorsOpened(event: ElevatorDoorsOpened) {
         doorsOpened = true
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")
-    fun doorsClosed(event: ElevatorDoorsClosed, eventBus: EventBus) {
+    fun doorsClosed(event: ElevatorDoorsClosed, scheduler: EventScheduler) {
         doorsOpened = false
-        moveToNextFloorIfAvailableTarget(eventBus)
+        moveToNextFloorIfAvailableTarget(scheduler)
     }
 
-    private fun moveToNextFloorIfAvailableTarget(eventBus: EventBus) {
-        if (targetFloors.isEmpty()) {
+    private fun moveToNextFloorIfAvailableTarget(scheduler: EventScheduler) {
+        if (targetFloors.isEmpty() || underway) {
             return
         }
 
@@ -71,22 +74,23 @@ class ElevatorTargetsSaga {
         val targetDown = targetFloors.filter { it < floor }.max()
 
         if (direction == ElevatorDirection.UP && targetUp != null) {
-            moveToFloor(targetUp, eventBus)
+            moveToFloor(targetUp, scheduler)
             return
         } else if (direction == ElevatorDirection.DOWN && targetDown != null) {
-            moveToFloor(targetDown, eventBus)
+            moveToFloor(targetDown, scheduler)
             return
         } else if (targetUp != null) {
             direction = ElevatorDirection.UP
-            moveToFloor(targetUp, eventBus)
+            moveToFloor(targetUp, scheduler)
         } else if (targetDown != null) {
             direction = ElevatorDirection.DOWN
-            moveToFloor(targetDown, eventBus)
+            moveToFloor(targetDown, scheduler)
         }
     }
 
-    private fun moveToFloor(target: Long, eventBus: EventBus) {
-        eventBus.publish(GenericEventMessage(ElevatorMovedToFloor(elevatorId, target)))
+    private fun moveToFloor(target: Long, scheduler: EventScheduler) {
+        scheduler.schedule(Duration.ofSeconds(Math.abs(floor - target)), ElevatorMovedToFloor(elevatorId, target))
+        underway = true
     }
 
 }
