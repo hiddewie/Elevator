@@ -16,7 +16,7 @@ class Elevator(
     var uuid: UUID,
 
     @Type(type = "org.hibernate.type.UUIDBinaryType")
-    @Column(length = 16)
+    @Column(name = "elevatorGroup", length = 16)
     var group: UUID,
 
     var floor: Long,
