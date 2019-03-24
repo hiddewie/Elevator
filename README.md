@@ -20,6 +20,8 @@ Run the command `./gradlew test`.
 
 Run the command `./gradlew bootRun`. Then web server will run on port 8080.
 
+See [the frondend readme](web/README.md) for running the Angular frontend.
+
 ## Model
 
 #### Elevator
