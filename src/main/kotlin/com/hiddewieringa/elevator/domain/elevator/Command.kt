@@ -13,10 +13,8 @@ data class CreateElevator(
     val initialDirection: ElevatorDirection = ElevatorDirection.UP
 )
 
-data class AssignElevatorTarget(
-    @field:TargetAggregateIdentifier val elevatorId: ElevatorId,
-    val floor: Long
-)
+data class AssignElevatorTarget(@field:TargetAggregateIdentifier val elevatorId: ElevatorId, val floor: Long)
+data class RemoveElevatorTarget(@field:TargetAggregateIdentifier val elevatorId: ElevatorId, val floor: Long)
 
 data class OpenDoors(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 data class CloseDoors(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)

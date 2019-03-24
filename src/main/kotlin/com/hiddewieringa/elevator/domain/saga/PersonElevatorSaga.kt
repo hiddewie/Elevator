@@ -21,14 +21,14 @@ import org.axonframework.spring.stereotype.Saga
 @Saga
 class PersonElevatorSaga {
 
-    private lateinit var personId: PersonId
-    private lateinit var elevatorId: ElevatorId
+    lateinit var personId: PersonId
+    lateinit var elevatorId: ElevatorId
 
-    private var personFloor = 0L
-    private var requestedFloor = 0L
-    private var elevatorFloor = 0L
+    var personFloor = 0L
+    var requestedFloor = 0L
+    var elevatorFloor = 0L
 
-    private var personInElevator = false
+    var personInElevator = false
 
     @StartSaga
     @SagaEventHandler(associationProperty = "personId")

@@ -1,5 +1,6 @@
 package com.hiddewieringa.elevator.domain.saga
 
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsAutoClosed
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
@@ -26,7 +27,7 @@ class ElevatorDoorsSagaTest {
             .whenPublishingA(ElevatorDoorsOpened(elevatorId))
             .expectActiveSagas(1)
             .expectAssociationWith("elevatorId", elevatorId.toString())
-            .expectScheduledEvent(Duration.ofSeconds(10), ElevatorDoorsClosed(elevatorId))
+            .expectScheduledEvent(Duration.ofSeconds(3), ElevatorDoorsAutoClosed(elevatorId))
             .expectNoDispatchedCommands()
     }
 
@@ -46,7 +47,7 @@ class ElevatorDoorsSagaTest {
         val elevatorId = ElevatorId(UUID.randomUUID())
 
         fixture.givenAPublished(ElevatorDoorsOpened(elevatorId))
-            .whenTimeElapses(Duration.ofSeconds(11))
+            .whenTimeElapses(Duration.ofSeconds(4))
             .expectNoScheduledEvents()
             .expectActiveSagas(0)
             .expectNoDispatchedCommands()

@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "elevator")
-class Elevator(
+data class Elevator(
     @Id
     @GeneratedValue
     var id: Long? = null,
@@ -22,5 +22,7 @@ class Elevator(
     var floor: Long,
 
     var numberOfPersons: Int = 0,
-    var numberOfTargets: Int = 0
+    var numberOfTargets: Int = 0,
+
+    var doorsOpened: Boolean = false
 )

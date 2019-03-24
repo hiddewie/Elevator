@@ -37,7 +37,7 @@ plugins {
 }
 
 val kotlinVersion = "1.3.21"
-val axonVersion = "4.0.3"
+val axonVersion = "4.0.4"
 val mariaDbVersion = "1.5.7"
 val javassistVersion = "3.23.1-GA"
 

@@ -71,30 +71,4 @@ class ElevatorAggregateTest {
             .`when`(AssignElevatorTarget(elevatorId, floor))
             .expectEvents(ElevatorTargetAssigned(elevatorId, floor))
     }
-//
-//    @Test
-//    fun callElevator0() {
-//        val elevatorId = ElevatorId(UUID.randomUUID())
-//        fixture.given(ElevatorCreated(elevatorId))
-//                .`when`(CallElevator(elevatorId, 0))
-//                .expectEvents(ElevatorMovedToFloor(elevatorId, 0))
-//    }
-//
-//    @Test
-//    fun callElevator1() {
-//        val elevatorId = ElevatorId(UUID.randomUUID())
-//        fixture.given(ElevatorCreated(elevatorId))
-//                .`when`(CallElevator(elevatorId, 1))
-//                .expectEvents(ElevatorMovedToFloor(elevatorId, 1))
-//    }
-//
-//    @Test
-//    fun callElevator3() {
-//        val elevatorId = ElevatorId(UUID.randomUUID())
-//        fixture.given(ElevatorCreated(elevatorId))
-//                .`when`(CallElevator(elevatorId, 3))
-//                .expectEvents(ElevatorMovedToFloor(elevatorId, 1),
-//                        ElevatorMovedToFloor(elevatorId, 2),
-//                        ElevatorMovedToFloor(elevatorId, 3))
-//    }
 }

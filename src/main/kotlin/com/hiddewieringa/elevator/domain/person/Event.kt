@@ -4,15 +4,19 @@ import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import com.hiddewieringa.elevator.domain.person.model.PersonId
 import org.axonframework.modelling.command.TargetAggregateIdentifier
 
-class PersonArrived(@field:TargetAggregateIdentifier val personId: PersonId, val floor: Long, val requestedFloor: Long)
+data class PersonArrived(
+    @field:TargetAggregateIdentifier val personId: PersonId,
+    val floor: Long,
+    val requestedFloor: Long
+)
 
-class PersonEnteredElevator(
+data class PersonEnteredElevator(
     @field:TargetAggregateIdentifier
     val personId: PersonId,
     val elevatorId: ElevatorId
 )
 
-class PersonLeftElevator(
+data class PersonLeftElevator(
     @field:TargetAggregateIdentifier
     val personId: PersonId,
     val elevatorId: ElevatorId

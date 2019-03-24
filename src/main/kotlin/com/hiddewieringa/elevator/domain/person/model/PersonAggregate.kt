@@ -3,7 +3,7 @@ package com.hiddewieringa.elevator.domain.person.model
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import com.hiddewieringa.elevator.domain.person.*
 import org.axonframework.commandhandling.CommandHandler
-import org.axonframework.eventhandling.EventHandler
+import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.spring.stereotype.Aggregate
@@ -18,14 +18,14 @@ class PersonAggregate {
     private var requestedFloor = 0L;
     private var inElevator: ElevatorId? = null;
 
-    private constructor()
+    constructor()
 
     @CommandHandler
     constructor(command: PersonArrives) {
         apply(PersonArrived(command.personId, command.floor, command.requestedFloor))
     }
 
-    @EventHandler
+    @EventSourcingHandler
     fun handle(event: PersonArrived) {
         this.id = event.personId
         this.floor = event.floor
@@ -40,7 +40,7 @@ class PersonAggregate {
         apply(PersonEnteredElevator(command.personId, command.elevatorId))
     }
 
-    @EventHandler
+    @EventSourcingHandler
     fun handle(event: PersonEnteredElevator) {
         inElevator = event.elevatorId
     }
@@ -53,7 +53,7 @@ class PersonAggregate {
         apply(PersonLeftElevator(command.personId, command.elevatorId))
     }
 
-    @EventHandler
+    @EventSourcingHandler
     fun handle(event: PersonLeftElevator) {
         inElevator = null
     }

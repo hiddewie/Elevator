@@ -9,11 +9,12 @@ import java.util.*
 data class ElevatorDoorsOpened(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 
 data class ElevatorDoorsClosed(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
+data class ElevatorDoorsAutoClosed(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 
 data class ElevatorCreated(
     @field:TargetAggregateIdentifier val elevatorId: ElevatorId,
     val groupId: ElevatorGroupId = ElevatorGroupId(UUID.randomUUID()),
-    val initalFloor: Long = 0L,
+    val initialFloor: Long = 0L,
     val initialDirection: ElevatorDirection = ElevatorDirection.UP
 )
 

@@ -1,0 +1,33 @@
+<h1>Elevator</h1>
+
+<h2>Status</h2>
+<div>
+  <div>Live {{ liveStatus$ | async }}</div>
+  <div>Ready {{ readyStatus$ | async }}</div>
+</div>
+
+<h2>Elevators</h2>
+<div>
+  <button (click)="addElevator()">Add</button>
+</div>
+<div>
+  <ul *ngIf="(elevators$ | async) as elevators">
+    <li *ngFor="let elevator of elevators">
+      {{ elevator.uuid }} @ {{ elevator.floor }} ({{ elevator.numberOfPersons }} persons) ({{ elevator.numberOfTargets }} targets) (doors {{ elevator.doorsOpened ? 'open' : 'closed' }})
+    </li>
+  </ul>
+</div>
+
+<h2>Persons</h2>
+<div>
+<!--  *ngFor="let floor of range(0, 10)"-->
+<!--  {{ floor }}-->
+  <button (click)="personArrives()">Arrive </button>
+</div>
+<!--<div>-->
+<!--  <ul *ngIf="(persons$ | async) as persons">-->
+<!--    <li *ngFor="let person of persons">-->
+<!--      {{ person.uuid }}-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->

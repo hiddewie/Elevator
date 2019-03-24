@@ -14,21 +14,19 @@ import java.time.Duration
 @Saga
 class ElevatorTargetsSaga {
 
-    private lateinit var elevatorId: ElevatorId
-    private var floor: Long = 0
-    private var targetFloors = mutableListOf<Long>()
-    private var direction = ElevatorDirection.UP
-
-    private var doorsOpened = false
-
-    private var underway = false
+    lateinit var elevatorId: ElevatorId
+    var floor: Long = 0
+    var targetFloors = mutableSetOf<Long>()
+    var direction = ElevatorDirection.UP
+    var doorsOpened = false
+    var underway = false
 
     @StartSaga
     @SagaEventHandler(associationProperty = "elevatorId")
     fun created(event: ElevatorCreated) {
         elevatorId = event.elevatorId
         direction = event.initialDirection
-        floor = event.initalFloor
+        floor = event.initialFloor
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")
@@ -36,7 +34,7 @@ class ElevatorTargetsSaga {
         targetFloors.add(event.floor)
 
         if (!doorsOpened) {
-            moveToNextFloorIfAvailableTarget(scheduler)
+            moveToNextFloorIfAvailableTarget(event.elevatorId, scheduler)
         }
     }
 
@@ -50,7 +48,7 @@ class ElevatorTargetsSaga {
         floor = event.floor
         underway = false
 
-        targetFloors.remove(event.floor)
+        commandGateway.send(RemoveElevatorTarget(elevatorId, floor), LoggingCallback.INSTANCE)
         commandGateway.send(OpenDoors(elevatorId), LoggingCallback.INSTANCE)
     }
 
@@ -62,34 +60,38 @@ class ElevatorTargetsSaga {
     @SagaEventHandler(associationProperty = "elevatorId")
     fun doorsClosed(event: ElevatorDoorsClosed, scheduler: EventScheduler) {
         doorsOpened = false
-        moveToNextFloorIfAvailableTarget(scheduler)
+        moveToNextFloorIfAvailableTarget(event.elevatorId, scheduler)
     }
 
-    private fun moveToNextFloorIfAvailableTarget(scheduler: EventScheduler) {
+    private fun moveToNextFloorIfAvailableTarget(
+        elevatorId: ElevatorId,
+        scheduler: EventScheduler
+    ) {
         if (targetFloors.isEmpty() || underway) {
             return
         }
 
+        val currentFloorIsTarget = targetFloors.contains(floor)
         val targetUp = targetFloors.filter { it > floor }.min()
         val targetDown = targetFloors.filter { it < floor }.max()
 
-        if (direction == ElevatorDirection.UP && targetUp != null) {
-            moveToFloor(targetUp, scheduler)
-            return
+        if (currentFloorIsTarget) {
+            moveToFloor(elevatorId, floor, scheduler)
+        } else if (direction == ElevatorDirection.UP && targetUp != null) {
+            moveToFloor(elevatorId, targetUp, scheduler)
         } else if (direction == ElevatorDirection.DOWN && targetDown != null) {
-            moveToFloor(targetDown, scheduler)
-            return
+            moveToFloor(elevatorId, targetDown, scheduler)
         } else if (targetUp != null) {
             direction = ElevatorDirection.UP
-            moveToFloor(targetUp, scheduler)
+            moveToFloor(elevatorId, targetUp, scheduler)
         } else if (targetDown != null) {
             direction = ElevatorDirection.DOWN
-            moveToFloor(targetDown, scheduler)
+            moveToFloor(elevatorId, targetDown, scheduler)
         }
     }
 
-    private fun moveToFloor(target: Long, scheduler: EventScheduler) {
-        scheduler.schedule(Duration.ofSeconds(Math.abs(floor - target)), ElevatorMovedToFloor(elevatorId, target))
+    private fun moveToFloor(elevatorId: ElevatorId, target: Long, scheduler: EventScheduler) {
+        scheduler.schedule(Duration.ofSeconds(1 + Math.abs(floor - target)), ElevatorMovedToFloor(elevatorId, target))
         underway = true
     }
 
