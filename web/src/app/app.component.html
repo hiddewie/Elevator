@@ -24,10 +24,10 @@
 <!--  {{ floor }}-->
   <button (click)="personArrives()">Arrive </button>
 </div>
-<!--<div>-->
-<!--  <ul *ngIf="(persons$ | async) as persons">-->
-<!--    <li *ngFor="let person of persons">-->
-<!--      {{ person.uuid }}-->
-<!--    </li>-->
-<!--  </ul>-->
-<!--</div>-->
+<div>
+  <ul *ngIf="(persons$ | async) as persons">
+    <li *ngFor="let person of persons">
+      {{ person.uuid }}
+    </li>
+  </ul>
+</div>

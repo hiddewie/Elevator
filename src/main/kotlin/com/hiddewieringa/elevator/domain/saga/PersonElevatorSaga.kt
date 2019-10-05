@@ -5,7 +5,7 @@ import com.hiddewieringa.elevator.domain.elevator.CloseDoors
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
 import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.elevator.query.ActiveQuery
+import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
 import com.hiddewieringa.elevator.domain.person.*
 import com.hiddewieringa.elevator.domain.person.model.PersonId
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator

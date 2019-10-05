@@ -6,7 +6,6 @@ module com.hiddewieringa.elevator {
     requires kotlin.stdlib;
     requires spring.web;
     requires spring.beans;
-    requires spring.webmvc;
     requires spring.context;
     requires java.persistence;
     requires org.hibernate.orm.core;
@@ -15,4 +14,6 @@ module com.hiddewieringa.elevator {
     requires spring.boot.autoconfigure;
     requires slf4j.api;
     requires spring.boot;
+    requires reactor.core;
+    requires spring.webflux;
 }

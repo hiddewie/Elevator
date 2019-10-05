@@ -2,9 +2,9 @@ package com.hiddewieringa.elevator.domain.saga
 
 import com.hiddewieringa.elevator.domain.elevator.*
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.elevator.query.ActiveQuery
-import com.hiddewieringa.elevator.domain.elevator.query.FloorResult
-import com.hiddewieringa.elevator.domain.elevator.query.QueryFloor
+import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
+import com.hiddewieringa.elevator.domain.elevator.FloorResult
+import com.hiddewieringa.elevator.domain.elevator.QueryFloor
 import com.hiddewieringa.elevator.domain.person.*
 import com.hiddewieringa.elevator.domain.person.model.PersonId
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator

@@ -52,7 +52,7 @@ configure<JavaPluginExtension> {
 
 dependencies {
     // Spring
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-webflux")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 

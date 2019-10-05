@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Service
-import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import org.springframework.web.filter.CorsFilter
+import org.springframework.web.reactive.config.CorsRegistry
+import org.springframework.web.reactive.config.WebFluxConfigurer
 
 @SpringBootApplication
 class Application {
@@ -33,11 +33,23 @@ class Application {
     @Bean
     fun storageEngine(): EventStorageEngine = InMemoryEventStorageEngine()
 
-    @Bean
-    fun cors(): CorsFilter {
-        val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues())
-        return CorsFilter(source)
+//    @Bean
+//    fun cors(): CorsFilter {
+//        val source = UrlBasedCorsConfigurationSource()
+//        source.registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues())
+//        return CorsFilter(source)
+//    }
+
+    @Configuration
+//    @EnableWebFlux
+    class CorsGlobalConfiguration : WebFluxConfigurer {
+
+        @Override
+        override fun addCorsMappings(corsRegistry: CorsRegistry) {
+            corsRegistry.addMapping("/**")
+                .allowedOrigins("*")
+                .maxAge(3600)
+        }
     }
 }
 
