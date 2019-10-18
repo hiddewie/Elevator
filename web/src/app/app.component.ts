@@ -14,6 +14,8 @@ interface Elevator {
 
 interface Person {
   uuid: string;
+  inElevator: boolean;
+  initialFloor: number;
 }
 
 @Component({
@@ -23,7 +25,7 @@ interface Person {
 })
 export class AppComponent implements OnInit {
 
-  title = 'web';
+  readonly floors = [...Array(10 + 1).keys()].reverse();
 
   liveStatus$: Observable<string>;
   readyStatus$: Observable<string>;
@@ -41,8 +43,8 @@ export class AppComponent implements OnInit {
       .subscribe(uuid => console.info('Done', uuid))
   }
 
-  personArrives() {
-    this.http.get(`${this.serviceUrl}/person/arrive/1/2`)
+  personArrives(floor: number, target: number) {
+    this.http.get(`${this.serviceUrl}/person/arrive/${floor}/${target}`)
       .subscribe(uuid => console.info('Done', uuid))
   }
 
@@ -51,18 +53,16 @@ export class AppComponent implements OnInit {
     this.persons$ = this.registerEventSource(`${this.serviceUrl}/person`);
 
     this.liveStatus$ = interval(this.pollPeriod)
-      .pipe(
-        switchMap(() => this.http.get(`${this.serviceUrl}/status/live`)),
+      .pipe(switchMap(() => this.http.get(`${this.serviceUrl}/status/live`).pipe(
         map(() => 'OK'),
-        catchError(() => of('ERROR'))
-      );
+        catchError(() => of('ERROR')),
+      )));
 
     this.readyStatus$ = interval(this.pollPeriod)
-      .pipe(
-        switchMap(() => this.http.get(`${this.serviceUrl}/status/ready`)),
+      .pipe(switchMap(() => this.http.get(`${this.serviceUrl}/status/ready`).pipe(
         map(() => 'OK'),
-        catchError(() => of('ERROR'))
-      );
+        catchError(() => of('ERROR')),
+      )));
   }
 
   private registerEventSource<T>(url: string): Observable<T> {

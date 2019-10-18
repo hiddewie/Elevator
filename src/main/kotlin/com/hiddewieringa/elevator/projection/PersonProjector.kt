@@ -28,9 +28,28 @@ class PersonProjector @Autowired constructor(
     fun create(event: PersonArrived) {
         personRepository.save(
             Person(
-                uuid = event.personId.id
+                uuid = event.personId.id,
+                inElevator = false,
+                initialFloor = event.floor
             )
         )
+        updateQueryResults()
+    }
+
+    @EventSourcingHandler
+    fun enter(event: PersonEnteredElevator) {
+        personRepository.findByUuid(event.personId.id).ifPresent {
+            it.inElevator = true
+            personRepository.save(it)
+        }
+        updateQueryResults()
+    }
+
+    @EventSourcingHandler
+    fun enter(event: PersonLeftElevator) {
+        personRepository.findByUuid(event.personId.id).ifPresent {
+            personRepository.delete(it)
+        }
         updateQueryResults()
     }
 

@@ -10,6 +10,7 @@ import org.axonframework.modelling.saga.SagaEventHandler
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.spring.stereotype.Saga
 import java.time.Duration
+import kotlin.math.abs
 
 @Saga
 class ElevatorTargetsSaga {
@@ -91,7 +92,7 @@ class ElevatorTargetsSaga {
     }
 
     private fun moveToFloor(elevatorId: ElevatorId, target: Long, scheduler: EventScheduler) {
-        scheduler.schedule(Duration.ofSeconds(1 + Math.abs(floor - target)), ElevatorMovedToFloor(elevatorId, target))
+        scheduler.schedule(Duration.ofSeconds(1 + abs(floor - target)), ElevatorMovedToFloor(elevatorId, target))
         underway = true
     }
 

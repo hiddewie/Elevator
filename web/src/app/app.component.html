@@ -1,33 +1,55 @@
-<h1>Elevator</h1>
+<div class="container">
+  <h4>Status
+    <span *ngIf=" liveStatus$ | async as status">
+      <span [class.badge-danger]="status == 'ERROR'"
+            [class.badge-success]="status == 'OK'" class="badge">
+        Live {{ status }}
+      </span>
+    </span>&nbsp;
+    <span *ngIf=" readyStatus$ | async as status">
+      <span [class.badge-danger]="status == 'ERROR'"
+            [class.badge-success]="status == 'OK'" class="badge">
+        Ready {{ status }}
+      </span>
+    </span>
+  </h4>
 
-<h2>Status</h2>
-<div>
-  <div>Live {{ liveStatus$ | async }}</div>
-  <div>Ready {{ readyStatus$ | async }}</div>
-</div>
+  <ng-container *ngIf="(elevators$ | async) as elevators">
+    <ng-container *ngIf="(persons$ | async) as persons">
 
-<h2>Elevators</h2>
-<div>
-  <button (click)="addElevator()">Add</button>
-</div>
-<div>
-  <ul *ngIf="(elevators$ | async) as elevators">
-    <li *ngFor="let elevator of elevators">
-      {{ elevator.uuid }} @ {{ elevator.floor }} ({{ elevator.numberOfPersons }} persons) ({{ elevator.numberOfTargets }} targets) (doors {{ elevator.doorsOpened ? 'open' : 'closed' }})
-    </li>
-  </ul>
-</div>
+      <h2>Elevators ({{elevators.length }})</h2>
+      <div>
+        <table>
+          <tbody>
+          <tr *ngFor="let floor of floors">
+            <td>
+              Floor {{ floor }}
+              <span *ngFor="let person of persons">
+                <span *ngIf="!person.inElevator && person.initialFloor == floor" [title]="person.uuid">P</span>
+              </span>
+            </td>
+            <td *ngFor="let elevator of elevators" [title]="elevator.uuid">
+                <span *ngIf="elevator.floor == floor">
+                  {{ elevator.numberOfPersons }}p {{ elevator.doorsOpened ? '<>' : '[]' }}
+                  <span *ngIf="elevator.numberOfTargets > 0">{{ elevator.numberOfTargets }}t</span>
+                </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <button (click)="addElevator()" class="btn btn-outline-primary">Build extra elevator</button>
+      </div>
 
-<h2>Persons</h2>
-<div>
-<!--  *ngFor="let floor of range(0, 10)"-->
-<!--  {{ floor }}-->
-  <button (click)="personArrives()">Arrive </button>
-</div>
-<div>
-  <ul *ngIf="(persons$ | async) as persons">
-    <li *ngFor="let person of persons">
-      {{ person.uuid }}
-    </li>
-  </ul>
+      <h2>Persons ({{ persons.length}})</h2>
+      <div>
+        Floor: <input type="number" step="1" #floor value="0"/>
+        Target: <input type="number" step="1" #target value="10"/>
+        <button (click)="personArrives(floor.value, target.value)" class="btn btn-outline-primary">
+          New person arrives at floor {{ floor.value }} with target {{ target.value }}
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
 </div>

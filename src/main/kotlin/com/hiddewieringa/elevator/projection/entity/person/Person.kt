@@ -13,5 +13,9 @@ data class Person(
 
     @Type(type = "org.hibernate.type.UUIDBinaryType")
     @Column(length = 16)
-    var uuid: UUID
+    var uuid: UUID,
+
+    var inElevator: Boolean = false,
+
+    var initialFloor: Long
 )

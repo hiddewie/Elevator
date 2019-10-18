@@ -46,7 +46,6 @@ class ElevatorAggregate {
 
     @EventSourcingHandler
     fun handle(event: ElevatorDoorsOpened) {
-        logger.warn("ElevatorDoorsOpened ${id.id}")
         doorsOpened = true
     }
 
@@ -61,7 +60,6 @@ class ElevatorAggregate {
 
     @EventSourcingHandler
     fun handle(event: ElevatorDoorsClosed) {
-        logger.warn("ElevatorDoorsClosed ${id.id}")
         doorsOpened = false
     }
 
