@@ -1,6 +1,10 @@
 package com.hiddewieringa.elevator.web
 
-import com.hiddewieringa.elevator.domain.elevator.*
+import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
+import com.hiddewieringa.elevator.domain.elevator.AssignElevatorTarget
+import com.hiddewieringa.elevator.domain.elevator.CreateElevator
+import com.hiddewieringa.elevator.domain.elevator.FloorResult
+import com.hiddewieringa.elevator.domain.elevator.QueryFloor
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -13,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.CompletableFuture
 
 @RestController

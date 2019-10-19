@@ -3,7 +3,7 @@ package com.hiddewieringa.elevator.domain.person
 import com.hiddewieringa.elevator.domain.person.model.PersonId
 import org.junit.Assert.fail
 import org.junit.Test
-import java.util.*
+import java.util.UUID
 
 class PersonArrivesTest {
     @Test

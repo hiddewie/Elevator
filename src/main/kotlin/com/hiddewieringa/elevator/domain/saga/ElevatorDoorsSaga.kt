@@ -4,6 +4,7 @@ import com.hiddewieringa.elevator.domain.elevator.CloseDoors
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsAutoClosed
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
+import java.time.Duration
 import org.axonframework.commandhandling.callbacks.LoggingCallback
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.eventhandling.EventHandler
@@ -14,7 +15,6 @@ import org.axonframework.modelling.saga.SagaEventHandler
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.stereotype.Service
-import java.time.Duration
 
 @Saga
 class ElevatorDoorsSaga {

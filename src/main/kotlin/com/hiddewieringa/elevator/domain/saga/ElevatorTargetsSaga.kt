@@ -1,6 +1,13 @@
 package com.hiddewieringa.elevator.domain.saga
 
-import com.hiddewieringa.elevator.domain.elevator.*
+import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
+import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetAssigned
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetRemoved
+import com.hiddewieringa.elevator.domain.elevator.OpenDoors
+import com.hiddewieringa.elevator.domain.elevator.RemoveElevatorTarget
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorDirection
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import org.axonframework.commandhandling.callbacks.LoggingCallback
@@ -106,5 +113,4 @@ class ElevatorTargetsSaga {
             }
         }
     }
-
 }

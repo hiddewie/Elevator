@@ -8,7 +8,7 @@ import org.axonframework.test.saga.SagaTestFixture
 import org.junit.Before
 import org.junit.Test
 import java.time.Duration
-import java.util.*
+import java.util.UUID
 
 class ElevatorDoorsSagaTest {
 
@@ -52,5 +52,4 @@ class ElevatorDoorsSagaTest {
             .expectActiveSagas(0)
             .expectNoDispatchedCommands()
     }
-
 }

@@ -5,12 +5,13 @@ import com.hiddewieringa.elevator.domain.person.model.PersonId
 import org.axonframework.modelling.command.TargetAggregateIdentifier
 
 data class PersonArrives(
-    @field:TargetAggregateIdentifier val personId: PersonId, val floor: Long,
+    @field:TargetAggregateIdentifier val personId: PersonId,
+    val floor: Long,
     val requestedFloor: Long
 ) {
     init {
-        if (floor == requestedFloor) {
-            throw IllegalArgumentException("Floor and requested floor ($floor) cannot be the same.")
+        require(floor != requestedFloor) {
+            "Floor and requested floor ($floor) cannot be the same."
         }
     }
 }

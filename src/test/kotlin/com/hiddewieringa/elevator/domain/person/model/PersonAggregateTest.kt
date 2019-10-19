@@ -1,12 +1,17 @@
 package com.hiddewieringa.elevator.domain.person.model
 
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.person.*
+import com.hiddewieringa.elevator.domain.person.EnterElevator
+import com.hiddewieringa.elevator.domain.person.LeaveElevator
+import com.hiddewieringa.elevator.domain.person.PersonArrived
+import com.hiddewieringa.elevator.domain.person.PersonArrives
+import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
+import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.FixtureConfiguration
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.UUID
 
 class PersonAggregateTest {
 

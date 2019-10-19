@@ -1,11 +1,20 @@
 package com.hiddewieringa.elevator.domain.saga
 
-import com.hiddewieringa.elevator.domain.elevator.*
-import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
+import com.hiddewieringa.elevator.domain.elevator.AssignElevatorTarget
+import com.hiddewieringa.elevator.domain.elevator.CloseDoors
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
+import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetAssigned
 import com.hiddewieringa.elevator.domain.elevator.FloorResult
 import com.hiddewieringa.elevator.domain.elevator.QueryFloor
-import com.hiddewieringa.elevator.domain.person.*
+import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
+import com.hiddewieringa.elevator.domain.person.EnterElevator
+import com.hiddewieringa.elevator.domain.person.LeaveElevator
+import com.hiddewieringa.elevator.domain.person.PersonArrived
+import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
+import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
 import com.hiddewieringa.elevator.domain.person.model.PersonId
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import org.axonframework.common.Registration
@@ -18,7 +27,7 @@ import org.axonframework.queryhandling.SubscriptionQueryResult
 import org.axonframework.test.saga.SagaTestFixture
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.stream.Stream
@@ -52,10 +61,8 @@ class PersonElevatorSagaTest {
                             )
                         )
                     ) as CompletableFuture<R>
-
                 } else if (query is QueryFloor) {
                     return CompletableFuture.completedFuture(FloorResult(0)) as CompletableFuture<R>
-
                 }
 
                 return CompletableFuture.completedFuture(null)

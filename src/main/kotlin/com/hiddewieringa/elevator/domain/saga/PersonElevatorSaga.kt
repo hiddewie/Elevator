@@ -1,12 +1,16 @@
 package com.hiddewieringa.elevator.domain.saga
 
+import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
 import com.hiddewieringa.elevator.domain.elevator.AssignElevatorTarget
 import com.hiddewieringa.elevator.domain.elevator.CloseDoors
 import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
 import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
-import com.hiddewieringa.elevator.domain.person.*
+import com.hiddewieringa.elevator.domain.person.EnterElevator
+import com.hiddewieringa.elevator.domain.person.LeaveElevator
+import com.hiddewieringa.elevator.domain.person.PersonArrived
+import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
+import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
 import com.hiddewieringa.elevator.domain.person.model.PersonId
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import org.axonframework.commandhandling.callbacks.LoggingCallback
@@ -44,7 +48,7 @@ class PersonElevatorSaga {
 
         personFloor = event.floor
         requestedFloor = event.requestedFloor
-        commandGateway.send(AssignElevatorTarget(elevatorId, event.floor), LoggingCallback.INSTANCE);
+        commandGateway.send(AssignElevatorTarget(elevatorId, event.floor), LoggingCallback.INSTANCE)
     }
 
     private fun elevatorWithLeastTargets(elevators: List<Elevator>): Elevator? {
@@ -77,5 +81,4 @@ class PersonElevatorSaga {
     fun entered(event: PersonLeftElevator) {
         personInElevator = false
     }
-
 }

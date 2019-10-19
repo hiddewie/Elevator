@@ -1,11 +1,18 @@
 package com.hiddewieringa.elevator.domain.elevator.model
 
-import com.hiddewieringa.elevator.domain.elevator.*
+import com.hiddewieringa.elevator.domain.elevator.AssignElevatorTarget
+import com.hiddewieringa.elevator.domain.elevator.CloseDoors
+import com.hiddewieringa.elevator.domain.elevator.CreateElevator
+import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetAssigned
+import com.hiddewieringa.elevator.domain.elevator.OpenDoors
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.FixtureConfiguration
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.UUID
 
 class ElevatorAggregateTest {
 

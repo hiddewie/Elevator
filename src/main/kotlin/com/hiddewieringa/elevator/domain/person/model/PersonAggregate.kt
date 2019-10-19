@@ -1,7 +1,12 @@
 package com.hiddewieringa.elevator.domain.person.model
 
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.person.*
+import com.hiddewieringa.elevator.domain.person.EnterElevator
+import com.hiddewieringa.elevator.domain.person.LeaveElevator
+import com.hiddewieringa.elevator.domain.person.PersonArrived
+import com.hiddewieringa.elevator.domain.person.PersonArrives
+import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
+import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -14,9 +19,9 @@ class PersonAggregate {
     @AggregateIdentifier
     private lateinit var id: PersonId
 
-    private var floor = 0L;
-    private var requestedFloor = 0L;
-    private var inElevator: ElevatorId? = null;
+    private var floor = 0L
+    private var requestedFloor = 0L
+    private var inElevator: ElevatorId? = null
 
     constructor()
 

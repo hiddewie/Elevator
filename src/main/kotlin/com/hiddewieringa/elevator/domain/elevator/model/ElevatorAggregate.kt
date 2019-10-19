@@ -1,6 +1,16 @@
 package com.hiddewieringa.elevator.domain.elevator.model
 
-import com.hiddewieringa.elevator.domain.elevator.*
+import com.hiddewieringa.elevator.domain.elevator.AssignElevatorTarget
+import com.hiddewieringa.elevator.domain.elevator.CloseDoors
+import com.hiddewieringa.elevator.domain.elevator.CreateElevator
+import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
+import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetAssigned
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetRemoved
+import com.hiddewieringa.elevator.domain.elevator.OpenDoors
+import com.hiddewieringa.elevator.domain.elevator.RemoveElevatorTarget
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier

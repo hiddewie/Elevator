@@ -4,7 +4,7 @@ import com.hiddewieringa.elevator.domain.elevator.model.ElevatorDirection
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorGroupId
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import org.axonframework.modelling.command.TargetAggregateIdentifier
-import java.util.*
+import java.util.UUID
 
 data class ElevatorDoorsOpened(@field:TargetAggregateIdentifier val elevatorId: ElevatorId)
 

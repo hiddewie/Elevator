@@ -1,7 +1,12 @@
 package com.hiddewieringa.elevator.projection
 
-import com.hiddewieringa.elevator.domain.elevator.*
 import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
+import com.hiddewieringa.elevator.domain.elevator.ElevatorCreated
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsClosed
+import com.hiddewieringa.elevator.domain.elevator.ElevatorDoorsOpened
+import com.hiddewieringa.elevator.domain.elevator.ElevatorMovedToFloor
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetAssigned
+import com.hiddewieringa.elevator.domain.elevator.ElevatorTargetRemoved
 import com.hiddewieringa.elevator.domain.elevator.FloorResult
 import com.hiddewieringa.elevator.domain.elevator.QueryFloor
 import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator

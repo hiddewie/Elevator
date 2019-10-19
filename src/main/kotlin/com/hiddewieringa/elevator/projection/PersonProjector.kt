@@ -1,15 +1,9 @@
 package com.hiddewieringa.elevator.projection
 
-import com.hiddewieringa.elevator.domain.elevator.*
-import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
-import com.hiddewieringa.elevator.domain.elevator.FloorResult
-import com.hiddewieringa.elevator.domain.elevator.QueryFloor
 import com.hiddewieringa.elevator.domain.person.AllQuery
 import com.hiddewieringa.elevator.domain.person.PersonArrived
 import com.hiddewieringa.elevator.domain.person.PersonEnteredElevator
 import com.hiddewieringa.elevator.domain.person.PersonLeftElevator
-import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
-import com.hiddewieringa.elevator.projection.entity.elevator.ElevatorRepository
 import com.hiddewieringa.elevator.projection.entity.person.Person
 import com.hiddewieringa.elevator.projection.entity.person.PersonRepository
 import org.axonframework.eventsourcing.EventSourcingHandler

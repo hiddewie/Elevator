@@ -16,6 +16,7 @@ plugins {
     val kotlinVersion = "1.3.50"
     val springBootVersion = "2.2.0.RELEASE"
     val springDependencyManagementVersion = "1.0.8.RELEASE"
+    val kotlinterVersion = "2.1.2"
 
     // IntelliJ
     idea
@@ -27,6 +28,9 @@ plugins {
     kotlin("jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
+
+    // Kotlinter
+    id("org.jmailen.kotlinter") version kotlinterVersion
 
     // Spring
     id("org.springframework.boot") version springBootVersion
@@ -99,4 +103,17 @@ tasks {
             xml.isEnabled = true
         }
     }
+}
+
+kotlinter {
+    ignoreFailures = false
+    indentSize = 4
+    continuationIndentSize = 4
+    reporters = arrayOf("checkstyle", "plain")
+    experimentalRules = false
+    disabledRules = arrayOf(
+        "filename",
+        "import-ordering"
+    )
+    fileBatchSize = 30
 }
