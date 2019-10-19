@@ -38,8 +38,8 @@ plugins {
 
 val kotlinVersion = "1.3.50"
 val axonVersion = "4.0.4"
-val mariaDbVersion = "1.5.7"
-val javassistVersion = "3.23.1-GA"
+val mariaDbVersion = "2.5.1"
+val javassistVersion = "3.26.0-GA"
 
 repositories {
     mavenCentral()
