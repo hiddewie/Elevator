@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @RunWith(SpringRunner::class)
-@WebFluxTest
+@WebFluxTest(controllers = [StatusController::class])
 class StatusControllerTest {
 
     @Autowired

@@ -43,7 +43,6 @@ class Application {
 //    }
 
     @Configuration
-//    @EnableWebFlux
     class CorsGlobalConfiguration : WebFluxConfigurer {
 
         @Override
