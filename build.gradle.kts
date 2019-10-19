@@ -1,6 +1,6 @@
 buildscript {
     val kotlinVersion = "1.3.21"
-    val springBootVersion = "2.1.2.RELEASE"
+    val springBootVersion = "2.2.0.RELEASE"
 
     repositories {
         mavenCentral()
@@ -14,7 +14,7 @@ buildscript {
 
 plugins {
     val kotlinVersion = "1.3.50"
-    val springBootVersion = "2.1.2.RELEASE"
+    val springBootVersion = "2.2.0.RELEASE"
     val springDependencyManagementVersion = "1.0.8.RELEASE"
 
     // IntelliJ
@@ -100,31 +100,3 @@ tasks {
         }
     }
 }
-
-//if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-//    val srcModule = "src/main/kotlin"
-//    val moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
-//    if (moduleInfo.exists()) {
-//        sourceSets {
-//            getByName("module").java.srcDirs(srcModule)
-//            getByName("module").java.compileClasspath = main.compileClasspath
-//            getByName("module").java.sourceCompatibility = JavaVersion.VERSION_1_9
-//            getByName("module").java.targetCompatibility = JavaVersion.VERSION_1_9
-////                }
-////            }
-//            getByName("main").kotlin .srcDirs(srcModule)
-////        }
-////            }
-//        }
-//
-//        compileModuleJava.configure {
-//            dependsOn(compileKotlin)
-//            destinationDir = compileKotlin.destinationDir
-//            doFirst {
-//                options.compilerArgs = listOf("--module-path", classpath.asPath)
-//                classpath = files()
-//            }
-//        }
-//        jar.dependsOn(compileModuleJava)
-//    }
-//}
