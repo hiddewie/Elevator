@@ -35,9 +35,9 @@ class ElevatorController(
     }
 
     @RequestMapping("/{id}/call/{floor}")
-    fun index(@PathVariable id: UUID, @PathVariable floor: Long): Mono<String> {
+    fun call(@PathVariable id: UUID, @PathVariable floor: Long): Mono<String> {
         commandGateway.send<Any>(AssignElevatorTarget(ElevatorId(id), floor))
-        return Mono.just("")
+        return Mono.just(id.toString())
     }
 
     @GetMapping(produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
@@ -55,7 +55,6 @@ class ElevatorController(
     }
 
     @RequestMapping("/{id}/floor")
-    fun floor(@PathVariable id: UUID): CompletableFuture<FloorResult> {
-        return queryGateway.query(QueryFloor(ElevatorId(id)), FloorResult::class.java)
-    }
+    fun floor(@PathVariable id: UUID): CompletableFuture<FloorResult> =
+        queryGateway.query(QueryFloor(ElevatorId(id)), FloorResult::class.java)
 }
