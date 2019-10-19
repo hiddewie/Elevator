@@ -47,10 +47,12 @@ class ElevatorTargetsSaga {
     @SagaEventHandler(associationProperty = "elevatorId")
     fun elevatorMoved(event: ElevatorMovedToFloor, commandGateway: CommandGateway) {
         floor = event.floor
-        underway = false
+        if (targetFloors.contains(event.floor)) {
+            underway = false
 
-        commandGateway.send(RemoveElevatorTarget(elevatorId, floor), LoggingCallback.INSTANCE)
-        commandGateway.send(OpenDoors(elevatorId), LoggingCallback.INSTANCE)
+            commandGateway.send(RemoveElevatorTarget(elevatorId, floor), LoggingCallback.INSTANCE)
+            commandGateway.send(OpenDoors(elevatorId), LoggingCallback.INSTANCE)
+        }
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")
@@ -92,8 +94,17 @@ class ElevatorTargetsSaga {
     }
 
     private fun moveToFloor(elevatorId: ElevatorId, target: Long, scheduler: EventScheduler) {
-        scheduler.schedule(Duration.ofSeconds(1 + abs(floor - target)), ElevatorMovedToFloor(elevatorId, target))
         underway = true
+        if (floor == target) {
+            scheduler.schedule(Duration.ofSeconds(1), ElevatorMovedToFloor(elevatorId, target))
+        } else {
+            val floors = (if (floor < target) (floor..target) else (floor downTo target))
+                .drop(1)
+
+            floors.forEach {
+                scheduler.schedule(Duration.ofSeconds(1 + abs(it - floor)), ElevatorMovedToFloor(elevatorId, it))
+            }
+        }
     }
 
 }
