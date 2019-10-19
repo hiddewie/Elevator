@@ -13,9 +13,9 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.3.21"
+    val kotlinVersion = "1.3.50"
     val springBootVersion = "2.1.2.RELEASE"
-    val springDependencyManagementVersion = "1.0.6.RELEASE"
+    val springDependencyManagementVersion = "1.0.8.RELEASE"
 
     // IntelliJ
     idea
@@ -36,7 +36,7 @@ plugins {
     jacoco
 }
 
-val kotlinVersion = "1.3.21"
+val kotlinVersion = "1.3.50"
 val axonVersion = "4.0.4"
 val mariaDbVersion = "1.5.7"
 val javassistVersion = "3.23.1-GA"
