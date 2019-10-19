@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 class StatusController {
 
     @GetMapping("/live")
-    fun live() = ""
+    fun live() = "OK"
 
     @GetMapping("/ready")
-    fun ready() = ""
+    fun ready() = "OK"
 }

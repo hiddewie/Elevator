@@ -1,10 +1,8 @@
 package com.hiddewieringa.elevator.web
 
-import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
 import com.hiddewieringa.elevator.domain.person.AllQuery
 import com.hiddewieringa.elevator.domain.person.PersonArrives
 import com.hiddewieringa.elevator.domain.person.model.PersonId
-import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import com.hiddewieringa.elevator.projection.entity.person.Person
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes

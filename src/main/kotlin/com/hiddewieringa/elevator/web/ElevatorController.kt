@@ -1,16 +1,11 @@
 package com.hiddewieringa.elevator.web
 
-import com.hiddewieringa.elevator.domain.elevator.AssignElevatorTarget
-import com.hiddewieringa.elevator.domain.elevator.CreateElevator
+import com.hiddewieringa.elevator.domain.elevator.*
 import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
-import com.hiddewieringa.elevator.domain.elevator.ActiveQuery
-import com.hiddewieringa.elevator.domain.elevator.FloorResult
-import com.hiddewieringa.elevator.domain.elevator.QueryFloor
 import com.hiddewieringa.elevator.projection.entity.elevator.Elevator
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -24,8 +19,8 @@ import java.util.concurrent.CompletableFuture
 @RestController
 @RequestMapping("/elevator")
 class ElevatorController(
-    @Autowired val commandGateway: CommandGateway,
-    @Autowired val queryGateway: QueryGateway
+    private val commandGateway: CommandGateway,
+    private val queryGateway: QueryGateway
 ) {
 
     @RequestMapping("/create")
