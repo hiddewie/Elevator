@@ -188,6 +188,15 @@ class ElevatorTargetsSagaTest {
             .whenPublishingA(ElevatorTargetAssigned(elevatorId, 0))
             .expectActiveSagas(1)
             .expectNoDispatchedCommands()
+            .expectScheduledEvent(Duration.ofSeconds(2), ElevatorMovedToFloor(elevatorId, 9))
+            .expectScheduledEvent(Duration.ofSeconds(3), ElevatorMovedToFloor(elevatorId, 8))
+            .expectScheduledEvent(Duration.ofSeconds(4), ElevatorMovedToFloor(elevatorId, 7))
+            .expectScheduledEvent(Duration.ofSeconds(5), ElevatorMovedToFloor(elevatorId, 6))
+            .expectScheduledEvent(Duration.ofSeconds(6), ElevatorMovedToFloor(elevatorId, 5))
+            .expectScheduledEvent(Duration.ofSeconds(7), ElevatorMovedToFloor(elevatorId, 4))
+            .expectScheduledEvent(Duration.ofSeconds(8), ElevatorMovedToFloor(elevatorId, 3))
+            .expectScheduledEvent(Duration.ofSeconds(9), ElevatorMovedToFloor(elevatorId, 2))
+            .expectScheduledEvent(Duration.ofSeconds(10), ElevatorMovedToFloor(elevatorId, 1))
             .expectScheduledEvent(Duration.ofSeconds(11), ElevatorMovedToFloor(elevatorId, 0))
     }
 }

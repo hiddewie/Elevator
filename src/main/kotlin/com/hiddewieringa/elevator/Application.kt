@@ -28,10 +28,12 @@ class Application {
     }
 
     @Bean
-    fun eventScheduler(): SimpleEventSchedulerFactoryBean = SimpleEventSchedulerFactoryBean()
+    fun eventScheduler(): SimpleEventSchedulerFactoryBean =
+        SimpleEventSchedulerFactoryBean()
 
     @Bean
-    fun storageEngine(): EventStorageEngine = InMemoryEventStorageEngine()
+    fun storageEngine(): EventStorageEngine =
+        InMemoryEventStorageEngine()
 
 //    @Bean
 //    fun cors(): CorsFilter {
