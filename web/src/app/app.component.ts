@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {interval, Observable} from "rxjs";
-import {catchError, map, switchMap} from "rxjs/operators";
+import {catchError, map, switchMap, tap} from "rxjs/operators";
 import {of} from "rxjs/internal/observable/of";
 
 interface Elevator {
@@ -38,6 +38,23 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
 
+  ngOnInit(): void {
+    this.elevators$ = this.registerEventSource(`${this.serviceUrl}/elevator`);
+    this.persons$ = this.registerEventSource(`${this.serviceUrl}/person`);
+
+    this.liveStatus$ = interval(this.pollPeriod)
+      .pipe(switchMap(() => this.http.get(`${this.serviceUrl}/status/live`, {responseType: 'text'}).pipe(
+        map(() => 'OK'),
+        catchError(() => of('ERROR')),
+      )));
+
+    this.readyStatus$ = interval(this.pollPeriod)
+      .pipe(switchMap(() => this.http.get(`${this.serviceUrl}/status/ready`, {responseType: 'text'}).pipe(
+        map(() => 'OK'),
+        catchError(() => of('ERROR')),
+      )));
+  }
+
   addElevator() {
     this.http.get(`${this.serviceUrl}/elevator/create`)
       .subscribe(uuid => console.info('Done', uuid))
@@ -46,23 +63,6 @@ export class AppComponent implements OnInit {
   personArrives(floor: number, target: number) {
     this.http.get(`${this.serviceUrl}/person/arrive/${floor}/${target}`)
       .subscribe(uuid => console.info('Done', uuid))
-  }
-
-  ngOnInit(): void {
-    this.elevators$ = this.registerEventSource(`${this.serviceUrl}/elevator`);
-    this.persons$ = this.registerEventSource(`${this.serviceUrl}/person`);
-
-    this.liveStatus$ = interval(this.pollPeriod)
-      .pipe(switchMap(() => this.http.get(`${this.serviceUrl}/status/live`).pipe(
-        map(() => 'OK'),
-        catchError(() => of('ERROR')),
-      )));
-
-    this.readyStatus$ = interval(this.pollPeriod)
-      .pipe(switchMap(() => this.http.get(`${this.serviceUrl}/status/ready`).pipe(
-        map(() => 'OK'),
-        catchError(() => of('ERROR')),
-      )));
   }
 
   private registerEventSource<T>(url: string): Observable<T> {

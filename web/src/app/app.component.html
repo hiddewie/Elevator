@@ -1,12 +1,12 @@
 <div class="container">
   <h4>Status
-    <span *ngIf=" liveStatus$ | async as status">
+    <span *ngIf="liveStatus$ | async as status">
       <span [class.badge-danger]="status == 'ERROR'"
             [class.badge-success]="status == 'OK'" class="badge">
         Live {{ status }}
       </span>
     </span>&nbsp;
-    <span *ngIf=" readyStatus$ | async as status">
+    <span *ngIf="readyStatus$ | async as status">
       <span [class.badge-danger]="status == 'ERROR'"
             [class.badge-success]="status == 'OK'" class="badge">
         Ready {{ status }}
