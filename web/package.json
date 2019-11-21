@@ -26,7 +26,7 @@
     "@angular-devkit/build-angular": "~0.803.19",
     "@angular/cli": "~8.3.19",
     "@angular/compiler-cli": "~8.0.0",
-    "@angular/language-service": "~8.2.13",
+    "@angular/language-service": "~8.2.14",
     "@types/node": "~12.12.11",
     "codelyzer": "^5.2.0",
     "ts-node": "~8.5.2",
