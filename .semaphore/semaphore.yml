@@ -14,7 +14,7 @@ blocks:
             - ./gradlew build jacocoTestReport --console=plain
       prologue:
         commands:
-          - sem-version java 10
+          - sem-version java 11
           - checkout
           - >-
             curl -LsS
