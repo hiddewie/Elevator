@@ -16,6 +16,7 @@ blocks:
         commands:
           - sem-version java 11
           - checkout
+          - cache restore
           - >-
             curl -LsS
             https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
@@ -25,6 +26,7 @@ blocks:
       epilogue:
         on_pass:
           commands:
+            - cache store
             - cd src/main/kotlin
             - >-
               ./../../../cc-test-reporter format-coverage
