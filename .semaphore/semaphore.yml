@@ -20,6 +20,8 @@ blocks:
             curl -LsS
             https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
             > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
+          - ./cc-test-reporter before-build
       epilogue:
         on_pass:
           commands:
@@ -30,6 +32,9 @@ blocks:
               --input-type jacoco --output ../../../coverage/codeclimate.json
             - cd ../../..
             - ./cc-test-reporter upload-coverage
+      env_vars:
+        - name: CC_TEST_REPORTER_ID
+          value: 69e4b50c7b4395499ae02f1df305d7b1916b56489a0221261192e338ed3ed4e4
     dependencies: []
   - name: 'Block #2'
     dependencies: []
