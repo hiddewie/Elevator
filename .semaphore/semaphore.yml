@@ -42,8 +42,15 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - cd web
-            - cache restore
             - yarn install
-            - cache store
             - yarn build
+      prologue:
+        commands:
+          - checkout
+          - sem-version node 10.13.0
+          - cd web
+          - cache restore
+      epilogue:
+        on_pass:
+          commands:
+            - cache store
