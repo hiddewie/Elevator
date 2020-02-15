@@ -1,7 +1,7 @@
 
 # Elevator
 
-[![Build Status](https://hiddewie.semaphoreci.com/badges/Elevator.svg)(https://hiddewie.semaphoreci.com/projects/Elevator)
+[![Build Status](https://hiddewie.semaphoreci.com/badges/Elevator.svg)](https://hiddewie.semaphoreci.com/projects/Elevator)
 [![Maintainability](https://api.codeclimate.com/v1/badges/641409c7c9336f1c0388/maintainability)](https://codeclimate.com/github/hiddewie/Elevator/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/641409c7c9336f1c0388/test_coverage)](https://codeclimate.com/github/hiddewie/Elevator/test_coverage)
 
 
