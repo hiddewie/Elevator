@@ -1,8 +1,7 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {interval, Observable} from "rxjs";
-import {catchError, map, switchMap, tap} from "rxjs/operators";
-import {of} from "rxjs/internal/observable/of";
+import {interval, Observable, of} from "rxjs";
+import {catchError, map, switchMap} from "rxjs/operators";
 
 interface Elevator {
   uuid: string;
