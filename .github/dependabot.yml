@@ -6,4 +6,3 @@ updates:
     interval: monthly
     time: "00:00"
   open-pull-requests-limit: 99
-  ignore: []
