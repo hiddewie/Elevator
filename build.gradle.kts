@@ -42,7 +42,6 @@ plugins {
 
 val kotlinVersion = "1.3.50"
 val axonVersion = "4.2"
-val mariaDbVersion = "2.5.1"
 val javassistVersion = "3.26.0-GA"
 
 repositories {
@@ -69,8 +68,8 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
 
-    // MariaDB
-    compile("org.mariadb.jdbc:mariadb-java-client:$mariaDbVersion")
+    // In-memory H2 database
+    compile("com.h2database:h2")
 
     // Axon
     compile("org.axonframework:axon-spring-boot-starter:$axonVersion") {
