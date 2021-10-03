@@ -1,0 +1,42 @@
+# Configuration for probot-auto-merge - https://github.com/bobvanderlinden/probot-auto-merge
+
+# The minimum number of reviews from each association that approve the pull request before
+# doing an automatic merge. For more information about associations see:
+# https://developer.github.com/v4/enum/commentauthorassociation/
+minApprovals:
+  OWNER: 0
+  MEMBER: 0
+  COLLABORATOR: 0
+  CONTRIBUTOR: 0
+  FIRST_TIMER: 0
+  FIRST_TIME_CONTRIBUTOR: 0
+  NONE: 0
+
+# The maximum number of reviews from each association that request changes to the pull request.
+# Setting this number higher than 0 will allow automatic merging while changes are still requested.
+# Requested changes from associations not defined in this list are ignored for automatic merging.
+maxRequestedChanges:
+  COLLABORATOR: 0
+
+# Whether the pull request branch is automatically deleted.
+# This is the equivalent of clicking the 'Delete branch' button shown on merged pull requests.
+# Note: this only works when the branch of the pull request resides in the same repository as
+#       the pull request itself.
+deleteBranchAfterMerge: true
+
+# In what way a pull request needs to be merged. This can be:
+# * merge: creates a merge commit, combining the commits from the pull request on top of
+#   the base of the pull request (default)
+# * rebase: places the commits from the pull request individually on top of the base of the pull request
+# * squash: combines all changes from the pull request into a single commit and places the commit on top
+#   of the base of the pull request
+# For more information see https://help.github.com/articles/about-pull-request-merges/
+mergeMethod: squash
+
+# Whenever required base branches are configured, pull requests will only be automatically merged whenever
+# their base branch (into which the PR would be merged) is matching any regular expression listed.
+requiredBaseBranches:
+- master
+
+requiredLabels:
+- dependencies
