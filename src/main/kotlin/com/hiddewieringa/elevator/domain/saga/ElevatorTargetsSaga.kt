@@ -82,8 +82,8 @@ class ElevatorTargetsSaga {
         }
 
         val currentFloorIsTarget = targetFloors.contains(floor)
-        val targetUp = targetFloors.filter { it > floor }.min()
-        val targetDown = targetFloors.filter { it < floor }.max()
+        val targetUp = targetFloors.filter { it > floor }.minOrNull()
+        val targetDown = targetFloors.filter { it < floor }.maxOrNull()
 
         if (currentFloorIsTarget) {
             moveToFloor(elevatorId, floor, scheduler)
