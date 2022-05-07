@@ -55,32 +55,32 @@ configure<JavaPluginExtension> {
 
 dependencies {
     // Spring
-    compile("org.springframework.boot:spring-boot-starter-webflux")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Java 11 Javassist
-    compile("org.javassist:javassist:$javassistVersion")
+    implementation("org.javassist:javassist:$javassistVersion")
 
     // Kotlin
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // In-memory H2 database
-    compile("com.h2database:h2")
+    implementation("com.h2database:h2")
 
     // Axon
-    compile("org.axonframework:axon-spring-boot-starter:$axonVersion") {
+    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion") {
         exclude(group = "org.axonframework", module = "axon-server-connector")
     }
-    testCompile("org.axonframework:axon-test:${axonVersion}")
+    testImplementation("org.axonframework:axon-test:${axonVersion}")
 
     // JUnit
-    testCompile("org.jetbrains.kotlin:kotlin-test")
-    testCompile("org.jetbrains.kotlin:kotlin-test-junit")
-    testCompile("junit:junit")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("junit:junit")
 }
 
 group = "com.hiddewieringa"
@@ -94,10 +94,11 @@ tasks {
     }
 
     jacoco {
-        toolVersion = "0.8.2"
+        toolVersion = "0.8.7"
     }
 
     jacocoTestReport {
+        dependsOn(test)
         reports {
             xml.isEnabled = true
         }
