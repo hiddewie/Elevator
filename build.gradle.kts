@@ -1,5 +1,5 @@
 buildscript {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.6.21"
     val springBootVersion = "2.6.7"
 
     repositories {
@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.6.21"
     val springBootVersion = "2.6.7"
     val kotlinterVersion = "3.10.0"
 
