@@ -1,6 +1,6 @@
 buildscript {
-    val kotlinVersion = "1.3.21"
-    val springBootVersion = "2.2.0.RELEASE"
+    val kotlinVersion = "1.6.10"
+    val springBootVersion = "2.6.7"
 
     repositories {
         mavenCentral()
@@ -13,10 +13,9 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.3.50"
-    val springBootVersion = "2.2.0.RELEASE"
-    val springDependencyManagementVersion = "1.0.8.RELEASE"
-    val kotlinterVersion = "2.1.2"
+    val kotlinVersion = "1.6.10"
+    val springBootVersion = "2.6.7"
+    val kotlinterVersion = "3.10.0"
 
     // IntelliJ
     idea
@@ -34,11 +33,12 @@ plugins {
 
     // Spring
     id("org.springframework.boot") version springBootVersion
-    id("io.spring.dependency-management") version springDependencyManagementVersion
 
     // Test coverage
     jacoco
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 val kotlinVersion = "1.3.50"
 val axonVersion = "4.2"
@@ -107,13 +107,10 @@ tasks {
 
 kotlinter {
     ignoreFailures = false
-    indentSize = 4
-    continuationIndentSize = 4
     reporters = arrayOf("checkstyle", "plain")
     experimentalRules = false
     disabledRules = arrayOf(
         "filename",
         "import-ordering"
     )
-    fileBatchSize = 30
 }
