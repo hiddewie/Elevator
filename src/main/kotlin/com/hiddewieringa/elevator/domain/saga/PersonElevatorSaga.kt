@@ -52,7 +52,7 @@ class PersonElevatorSaga {
     }
 
     private fun elevatorWithLeastTargets(elevators: List<Elevator>): Elevator? {
-        return elevators.minBy { it.numberOfTargets }
+        return elevators.minByOrNull { it.numberOfTargets }
     }
 
     @SagaEventHandler(associationProperty = "elevatorId")

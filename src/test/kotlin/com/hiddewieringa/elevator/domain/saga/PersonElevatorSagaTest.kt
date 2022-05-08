@@ -41,6 +41,7 @@ class PersonElevatorSagaTest {
         fixture = SagaTestFixture(PersonElevatorSaga::class.java)
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun queryGateway(elevatorId: ElevatorId): QueryGateway {
         return object : QueryGateway {
             override fun <R, Q> query(

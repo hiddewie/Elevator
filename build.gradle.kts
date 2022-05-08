@@ -1,6 +1,6 @@
 buildscript {
-    val kotlinVersion = "1.3.21"
-    val springBootVersion = "2.2.0.RELEASE"
+    val kotlinVersion = "1.6.21"
+    val springBootVersion = "2.6.7"
 
     repositories {
         mavenCentral()
@@ -13,10 +13,9 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.3.50"
-    val springBootVersion = "2.2.0.RELEASE"
-    val springDependencyManagementVersion = "1.0.8.RELEASE"
-    val kotlinterVersion = "2.1.2"
+    val kotlinVersion = "1.6.21"
+    val springBootVersion = "2.6.7"
+    val kotlinterVersion = "3.10.0"
 
     // IntelliJ
     idea
@@ -34,11 +33,12 @@ plugins {
 
     // Spring
     id("org.springframework.boot") version springBootVersion
-    id("io.spring.dependency-management") version springDependencyManagementVersion
 
     // Test coverage
     jacoco
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 val kotlinVersion = "1.3.50"
 val axonVersion = "4.2"
@@ -49,38 +49,38 @@ repositories {
 }
 
 configure<JavaPluginExtension> {
-    sourceCompatibility = JavaVersion.VERSION_1_9
-    targetCompatibility = JavaVersion.VERSION_1_9
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
     // Spring
-    compile("org.springframework.boot:spring-boot-starter-webflux")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Java 11 Javassist
-    compile("org.javassist:javassist:$javassistVersion")
+    implementation("org.javassist:javassist:$javassistVersion")
 
     // Kotlin
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // In-memory H2 database
-    compile("com.h2database:h2")
+    implementation("com.h2database:h2")
 
     // Axon
-    compile("org.axonframework:axon-spring-boot-starter:$axonVersion") {
+    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion") {
         exclude(group = "org.axonframework", module = "axon-server-connector")
     }
-    testCompile("org.axonframework:axon-test:${axonVersion}")
+    testImplementation("org.axonframework:axon-test:${axonVersion}")
 
     // JUnit
-    testCompile("org.jetbrains.kotlin:kotlin-test")
-    testCompile("org.jetbrains.kotlin:kotlin-test-junit")
-    testCompile("junit:junit")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("junit:junit")
 }
 
 group = "com.hiddewieringa"
@@ -94,10 +94,11 @@ tasks {
     }
 
     jacoco {
-        toolVersion = "0.8.2"
+        toolVersion = "0.8.7"
     }
 
     jacocoTestReport {
+        dependsOn(test)
         reports {
             xml.isEnabled = true
         }
@@ -106,13 +107,10 @@ tasks {
 
 kotlinter {
     ignoreFailures = false
-    indentSize = 4
-    continuationIndentSize = 4
     reporters = arrayOf("checkstyle", "plain")
     experimentalRules = false
     disabledRules = arrayOf(
         "filename",
         "import-ordering"
     )
-    fileBatchSize = 30
 }
