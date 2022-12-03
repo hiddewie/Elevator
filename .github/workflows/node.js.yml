@@ -13,14 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - run: cd web
-
     - name: Use Node.js 18
       uses: actions/setup-node@v3
       with:
         node-version: '18'
         cache: 'yarn'
+        cache-dependency-path: web/yarn.lock
 
     - run: yarn install
+      working-directory: web
     
     - run: yarn build
+      working-directory: web
