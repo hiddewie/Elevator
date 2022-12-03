@@ -35,4 +35,4 @@ jobs:
         CC_TEST_REPORTER_ID: 69e4b50c7b4395499ae02f1df305d7b1916b56489a0221261192e338ed3ed4e4
       with:
         coverageLocations: |
-          ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml.lcov:jacoco
+          ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
