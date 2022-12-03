@@ -29,13 +29,17 @@ apply(plugin = "io.spring.dependency-management")
 val kotlinVersion = "1.7.21"
 val axonVersion = "4.6.2"
 
-repositories {
-    mavenCentral()
+group = "com.hiddewieringa"
+version = "0.1.0"
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
-configure<JavaPluginExtension> {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -65,16 +69,7 @@ dependencies {
     testImplementation("junit:junit")
 }
 
-group = "com.hiddewieringa"
-version = "0.1.0"
-
 tasks {
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
-
     jacoco {
         toolVersion = "0.8.7"
     }
