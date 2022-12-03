@@ -27,7 +27,7 @@ plugins {
 apply(plugin = "io.spring.dependency-management")
 
 val kotlinVersion = "1.7.21"
-val axonVersion = "4.5.15"
+val axonVersion = "4.6.2"
 
 repositories {
     mavenCentral()

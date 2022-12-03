@@ -27,7 +27,8 @@ import org.axonframework.queryhandling.SubscriptionQueryResult
 import org.axonframework.test.saga.SagaTestFixture
 import org.junit.Before
 import org.junit.Test
-import java.util.UUID
+import org.reactivestreams.Publisher
+import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.stream.Stream
@@ -44,7 +45,7 @@ class PersonElevatorSagaTest {
     @Suppress("UNCHECKED_CAST")
     private fun queryGateway(elevatorId: ElevatorId): QueryGateway {
         return object : QueryGateway {
-            override fun <R, Q> query(
+            override fun <R, Q : Any> query(
                 queryName: String,
                 query: Q,
                 responseType: ResponseType<R>
@@ -69,26 +70,23 @@ class PersonElevatorSagaTest {
                 return CompletableFuture.completedFuture(null)
             }
 
-            override fun <R, Q> scatterGather(
+            override fun <R : Any?, Q : Any?> streamingQuery(queryName: String?, query: Q, responseType: Class<R>?): Publisher<R> =
+                TODO("Not implemented")
+
+            override fun <R, Q : Any> scatterGather(
                 queryName: String,
                 query: Q,
                 responseType: ResponseType<R>,
                 timeout: Long,
                 timeUnit: TimeUnit
-            ): Stream<R>? {
-                return null
-            }
+            ): Stream<R> =
+                TODO("Not implemented")
 
-            override fun <Q, I, U> subscriptionQuery(
-                queryName: String,
-                query: Q,
-                initialResponseType: ResponseType<I>,
-                updateResponseType: ResponseType<U>,
-                backpressure: SubscriptionQueryBackpressure,
-                updateBufferSize: Int
-            ): SubscriptionQueryResult<I, U>? {
-                return null
-            }
+            override fun <Q : Any, I : Any?, U : Any?> subscriptionQuery(queryName: String, query: Q, initialResponseType: ResponseType<I>, updateResponseType: ResponseType<U>, backpressure: SubscriptionQueryBackpressure?, updateBufferSize: Int): SubscriptionQueryResult<I, U> =
+                TODO("Not implemented")
+
+            override fun <Q : Any, I : Any?, U : Any?> subscriptionQuery(queryName: String, query: Q, initialResponseType: ResponseType<I>, updateResponseType: ResponseType<U>, updateBufferSize: Int): SubscriptionQueryResult<I, U> =
+                TODO("Not implemented")
 
             override fun registerDispatchInterceptor(dispatchInterceptor: MessageDispatchInterceptor<in QueryMessage<*, *>>): Registration? {
                 return null
