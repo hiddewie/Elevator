@@ -27,12 +27,14 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: build jacocoTestReport lintKotlin --no-daemon
+        arguments: build lintKotlin
 
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v3.2.0
       env:
         CC_TEST_REPORTER_ID: 69e4b50c7b4395499ae02f1df305d7b1916b56489a0221261192e338ed3ed4e4
+        JACOCO_SOURCE_PATH: "${{github.workspace}}/src/main/kotlin"
       with:
+        coverageCommand: ./gradlew jacocoTestReport
         coverageLocations: |
           ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
