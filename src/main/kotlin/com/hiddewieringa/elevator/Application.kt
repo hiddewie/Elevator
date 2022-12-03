@@ -35,13 +35,6 @@ class Application {
     fun storageEngine(): EventStorageEngine =
         InMemoryEventStorageEngine()
 
-//    @Bean
-//    fun cors(): CorsFilter {
-//        val source = UrlBasedCorsConfigurationSource()
-//        source.registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues())
-//        return CorsFilter(source)
-//    }
-
     @Configuration
     class CorsGlobalConfiguration : WebFluxConfigurer {
 
