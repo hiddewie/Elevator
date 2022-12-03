@@ -1,5 +1,5 @@
 plugins {
-    val kotlinVersion = "1.6.21"
+    val kotlinVersion = "1.7.21"
     val springBootVersion = "2.6.14"
     val kotlinterVersion = "3.10.0"
 
@@ -26,7 +26,7 @@ plugins {
 
 apply(plugin = "io.spring.dependency-management")
 
-val kotlinVersion = "1.6.21"
+val kotlinVersion = "1.7.21"
 val axonVersion = "4.5.15"
 
 repositories {
