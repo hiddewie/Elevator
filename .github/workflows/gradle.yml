@@ -27,7 +27,7 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: build jacocoTestReport --no-daemon
+        arguments: build jacocoTestReport lintKotlin --no-daemon
 
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v3.2.0
