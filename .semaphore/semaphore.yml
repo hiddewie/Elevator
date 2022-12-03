@@ -49,7 +49,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - sem-version node 18
+          - sem-version node 17
           - cd web
           - cache restore
       epilogue:
