@@ -1,0 +1,17 @@
+[versions]
+kotlin = "1.7.21"
+kotlinter = "3.10.0"
+spring-boot = "2.6.14"
+axon = "4.6.2"
+
+[libraries]
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+axon-spring-boot = { module = "org.axonframework:axon-spring-boot-starter", version.ref = "axon" }
+axon-test = { module = "org.axonframework:axon-test", version.ref = "axon" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

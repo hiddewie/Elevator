@@ -1,8 +1,4 @@
 plugins {
-    val kotlinVersion = "1.7.21"
-    val springBootVersion = "2.6.14"
-    val kotlinterVersion = "3.10.0"
-
     // IntelliJ
     idea
 
@@ -10,24 +6,21 @@ plugins {
     java
 
     // Kotlin JVM
-    kotlin("jvm") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.kotlin.jpa)
 
     // Kotlinter
-    id("org.jmailen.kotlinter") version kotlinterVersion
+    alias(libs.plugins.kotlinter)
 
     // Spring
-    id("org.springframework.boot") version springBootVersion
+    alias(libs.plugins.spring.boot)
 
     // Test coverage
     jacoco
 }
 
 apply(plugin = "io.spring.dependency-management")
-
-val kotlinVersion = "1.7.21"
-val axonVersion = "4.6.2"
 
 group = "com.hiddewieringa"
 version = "0.1.0"
@@ -49,7 +42,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation(libs.kotlin.stdlib)
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -58,10 +51,10 @@ dependencies {
     implementation("com.h2database:h2")
 
     // Axon
-    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion") {
+    implementation(libs.axon.spring.boot) {
         exclude(group = "org.axonframework", module = "axon-server-connector")
     }
-    testImplementation("org.axonframework:axon-test:${axonVersion}")
+    testImplementation(libs.axon.test)
 
     // JUnit
     testImplementation("org.jetbrains.kotlin:kotlin-test")
