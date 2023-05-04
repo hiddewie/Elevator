@@ -78,9 +78,4 @@ tasks {
 kotlinter {
     ignoreFailures = false
     reporters = arrayOf("checkstyle", "plain")
-    experimentalRules = false
-    disabledRules = arrayOf(
-        "filename",
-        "import-ordering"
-    )
 }

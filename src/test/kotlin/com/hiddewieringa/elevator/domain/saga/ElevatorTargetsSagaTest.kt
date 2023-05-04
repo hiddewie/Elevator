@@ -133,8 +133,8 @@ class ElevatorTargetsSagaTest {
             ElevatorCreated(
                 elevatorId,
                 initialFloor = 10,
-                initialDirection = ElevatorDirection.DOWN
-            )
+                initialDirection = ElevatorDirection.DOWN,
+            ),
         )
             .andThenAPublished(ElevatorMovedToFloor(elevatorId, 5))
             .andThenAPublished(ElevatorDoorsOpened(elevatorId))

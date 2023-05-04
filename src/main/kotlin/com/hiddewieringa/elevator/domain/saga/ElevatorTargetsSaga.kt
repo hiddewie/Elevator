@@ -75,7 +75,7 @@ class ElevatorTargetsSaga {
 
     private fun moveToNextFloorIfAvailableTarget(
         elevatorId: ElevatorId,
-        scheduler: EventScheduler
+        scheduler: EventScheduler,
     ) {
         if (targetFloors.isEmpty() || underway) {
             return

@@ -25,5 +25,5 @@ data class Elevator(
     var numberOfPersons: Int = 0,
     var numberOfTargets: Int = 0,
 
-    var doorsOpened: Boolean = false
+    var doorsOpened: Boolean = false,
 )

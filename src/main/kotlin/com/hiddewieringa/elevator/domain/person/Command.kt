@@ -7,7 +7,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
 data class PersonArrives(
     @field:TargetAggregateIdentifier val personId: PersonId,
     val floor: Long,
-    val requestedFloor: Long
+    val requestedFloor: Long,
 ) {
     init {
         require(floor != requestedFloor) {
@@ -18,10 +18,10 @@ data class PersonArrives(
 
 data class EnterElevator(
     @field:TargetAggregateIdentifier val personId: PersonId,
-    val elevatorId: ElevatorId
+    val elevatorId: ElevatorId,
 )
 
 data class LeaveElevator(
     @field:TargetAggregateIdentifier val personId: PersonId,
-    val elevatorId: ElevatorId
+    val elevatorId: ElevatorId,
 )

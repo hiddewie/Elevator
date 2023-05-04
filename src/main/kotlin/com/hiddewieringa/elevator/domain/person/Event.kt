@@ -7,17 +7,17 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
 data class PersonArrived(
     @field:TargetAggregateIdentifier val personId: PersonId,
     val floor: Long,
-    val requestedFloor: Long
+    val requestedFloor: Long,
 )
 
 data class PersonEnteredElevator(
     @field:TargetAggregateIdentifier
     val personId: PersonId,
-    val elevatorId: ElevatorId
+    val elevatorId: ElevatorId,
 )
 
 data class PersonLeftElevator(
     @field:TargetAggregateIdentifier
     val personId: PersonId,
-    val elevatorId: ElevatorId
+    val elevatorId: ElevatorId,
 )

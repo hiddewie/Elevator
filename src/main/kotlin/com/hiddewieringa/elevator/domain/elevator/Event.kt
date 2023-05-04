@@ -15,7 +15,7 @@ data class ElevatorCreated(
     @field:TargetAggregateIdentifier val elevatorId: ElevatorId,
     val groupId: ElevatorGroupId = ElevatorGroupId(UUID.randomUUID()),
     val initialFloor: Long = 0L,
-    val initialDirection: ElevatorDirection = ElevatorDirection.UP
+    val initialDirection: ElevatorDirection = ElevatorDirection.UP,
 )
 
 data class ElevatorMovedToFloor(@field:TargetAggregateIdentifier val elevatorId: ElevatorId, val floor: Long)

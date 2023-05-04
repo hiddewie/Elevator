@@ -48,7 +48,7 @@ class PersonElevatorSagaTest {
             override fun <R, Q : Any> query(
                 queryName: String,
                 query: Q,
-                responseType: ResponseType<R>
+                responseType: ResponseType<R>,
             ): CompletableFuture<R> {
                 if (query is ActiveQuery) {
                     return CompletableFuture.completedFuture(
@@ -59,9 +59,9 @@ class PersonElevatorSagaTest {
                                 UUID.randomUUID(),
                                 0,
                                 0,
-                                0
-                            )
-                        )
+                                0,
+                            ),
+                        ),
                     ) as CompletableFuture<R>
                 } else if (query is QueryFloor) {
                     return CompletableFuture.completedFuture(FloorResult(0)) as CompletableFuture<R>
@@ -78,7 +78,7 @@ class PersonElevatorSagaTest {
                 query: Q,
                 responseType: ResponseType<R>,
                 timeout: Long,
-                timeUnit: TimeUnit
+                timeUnit: TimeUnit,
             ): Stream<R> =
                 TODO("Not implemented")
 

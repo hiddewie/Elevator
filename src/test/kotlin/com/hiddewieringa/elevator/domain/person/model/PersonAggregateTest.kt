@@ -45,7 +45,7 @@ class PersonAggregateTest {
         val personId = PersonId(UUID.randomUUID())
         fixture.given(
             PersonArrived(personId, 0, 1),
-            PersonEnteredElevator(personId, elevatorId)
+            PersonEnteredElevator(personId, elevatorId),
         )
             .`when`(EnterElevator(personId, elevatorId))
             .expectException(IllegalArgumentException::class.java)
@@ -57,7 +57,7 @@ class PersonAggregateTest {
         val personId = PersonId(UUID.randomUUID())
         fixture.given(
             PersonArrived(personId, 0, 1),
-            PersonEnteredElevator(personId, elevatorId)
+            PersonEnteredElevator(personId, elevatorId),
         )
             .`when`(LeaveElevator(personId, elevatorId))
             .expectEvents(PersonLeftElevator(personId, elevatorId))

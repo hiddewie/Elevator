@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.8.21"
-kotlinter = "3.10.0"
+kotlinter = "3.14.0"
 spring-boot = "3.0.6"
 axon = "4.7.4"
 

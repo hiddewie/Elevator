@@ -38,8 +38,10 @@ class ElevatorControllerTest {
 
     @MockBean
     private lateinit var commandGateway: CommandGateway
+
     @MockBean
     private lateinit var queryGateway: QueryGateway
+
     @MockBean
     private lateinit var eventBus: EventBus
 
@@ -68,7 +70,7 @@ class ElevatorControllerTest {
             DefaultSubscriptionQueryResult(Mono.just(emptyList<Elevator>()), Flux.empty<List<Elevator>>(), null)
 
         `when`(
-            queryGateway.subscriptionQuery(any(ActiveQuery::class.java), any<ResponseType<*>>(), any<ResponseType<*>>())
+            queryGateway.subscriptionQuery(any(ActiveQuery::class.java), any<ResponseType<*>>(), any<ResponseType<*>>()),
         ).thenReturn(queryResult)
 
         val body = this.webClient.get().uri("/elevator")

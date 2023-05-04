@@ -5,10 +5,11 @@ import com.hiddewieringa.elevator.domain.elevator.model.ElevatorId
 import org.axonframework.modelling.command.TargetAggregateIdentifier
 
 class ActiveQuery
+
 @JsonAutoDetect
 data class FloorResult(val floor: Long?)
 
 class QueryFloor(
     @field:TargetAggregateIdentifier
-    val elevatorId: ElevatorId
+    val elevatorId: ElevatorId,
 )

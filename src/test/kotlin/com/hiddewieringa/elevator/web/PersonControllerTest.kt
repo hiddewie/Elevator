@@ -35,8 +35,10 @@ class PersonControllerTest {
 
     @MockBean
     private lateinit var commandGateway: CommandGateway
+
     @MockBean
     private lateinit var queryGateway: QueryGateway
+
     @MockBean
     private lateinit var eventBus: EventBus
 
@@ -45,7 +47,7 @@ class PersonControllerTest {
         val queryResult =
             DefaultSubscriptionQueryResult(Mono.just(emptyList<Person>()), Flux.empty<List<Person>>(), null)
         `when`(
-            queryGateway.subscriptionQuery(any(AllQuery::class.java), any<ResponseType<*>>(), any<ResponseType<*>>())
+            queryGateway.subscriptionQuery(any(AllQuery::class.java), any<ResponseType<*>>(), any<ResponseType<*>>()),
         ).thenReturn(queryResult)
 
         val body = this.webClient.get().uri("/person")

@@ -20,8 +20,10 @@ class StatusControllerTest {
 
     @MockBean
     private lateinit var commandGateway: CommandGateway
+
     @MockBean
     private lateinit var queryGateway: QueryGateway
+
     @MockBean
     private lateinit var eventBus: EventBus
 

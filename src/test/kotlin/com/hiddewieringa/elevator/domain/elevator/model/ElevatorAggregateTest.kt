@@ -45,7 +45,7 @@ class ElevatorAggregateTest {
         val elevatorId = ElevatorId(UUID.randomUUID())
         fixture.given(
             ElevatorCreated(elevatorId),
-            ElevatorDoorsOpened(elevatorId)
+            ElevatorDoorsOpened(elevatorId),
         )
             .`when`(OpenDoors(elevatorId))
             .expectNoEvents()
@@ -56,7 +56,7 @@ class ElevatorAggregateTest {
         val elevatorId = ElevatorId(UUID.randomUUID())
         fixture.given(
             ElevatorCreated(elevatorId),
-            ElevatorDoorsOpened(elevatorId)
+            ElevatorDoorsOpened(elevatorId),
         )
             .`when`(CloseDoors(elevatorId))
             .expectEvents(ElevatorDoorsClosed(elevatorId))

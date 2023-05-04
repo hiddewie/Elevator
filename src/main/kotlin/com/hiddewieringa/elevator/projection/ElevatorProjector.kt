@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service
 @Service
 class ElevatorProjector @Autowired constructor(
     private val queryUpdateEmitter: QueryUpdateEmitter,
-    private val elevatorRepository: ElevatorRepository
+    private val elevatorRepository: ElevatorRepository,
 ) {
 
     @EventSourcingHandler
@@ -34,8 +34,8 @@ class ElevatorProjector @Autowired constructor(
                 floor = 0,
                 numberOfPersons = 0,
                 numberOfTargets = 0,
-                doorsOpened = false
-            )
+                doorsOpened = false,
+            ),
         )
         updateQueryResults()
     }
@@ -118,7 +118,7 @@ class ElevatorProjector @Autowired constructor(
         queryUpdateEmitter.emit(
             ActiveQuery::class.java,
             { true },
-            elevatorRepository.findAll()
+            elevatorRepository.findAll(),
         )
     }
 }

@@ -19,5 +19,5 @@ data class Person(
 
     var inElevator: Boolean = false,
 
-    var initialFloor: Long
+    var initialFloor: Long,
 )

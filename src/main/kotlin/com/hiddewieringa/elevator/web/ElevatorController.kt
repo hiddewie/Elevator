@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture
 @RequestMapping("/elevator")
 class ElevatorController(
     private val commandGateway: CommandGateway,
-    private val queryGateway: QueryGateway
+    private val queryGateway: QueryGateway,
 ) {
 
     @RequestMapping("/create")
@@ -45,7 +45,7 @@ class ElevatorController(
         val queryResult = queryGateway.subscriptionQuery(
             ActiveQuery(),
             ResponseTypes.multipleInstancesOf(Elevator::class.java),
-            ResponseTypes.multipleInstancesOf(Elevator::class.java)
+            ResponseTypes.multipleInstancesOf(Elevator::class.java),
         )
 
         return Flux.create<List<Elevator>> { emitter ->

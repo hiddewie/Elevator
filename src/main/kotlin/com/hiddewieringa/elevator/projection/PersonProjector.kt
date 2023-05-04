@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 @Service
 class PersonProjector @Autowired constructor(
     private val queryUpdateEmitter: QueryUpdateEmitter,
-    private val personRepository: PersonRepository
+    private val personRepository: PersonRepository,
 ) {
 
     @EventSourcingHandler
@@ -24,8 +24,8 @@ class PersonProjector @Autowired constructor(
             Person(
                 uuid = event.personId.id,
                 inElevator = false,
-                initialFloor = event.floor
-            )
+                initialFloor = event.floor,
+            ),
         )
         updateQueryResults()
     }
@@ -55,7 +55,7 @@ class PersonProjector @Autowired constructor(
         queryUpdateEmitter.emit(
             AllQuery::class.java,
             { true },
-            personRepository.findAll()
+            personRepository.findAll(),
         )
     }
 }

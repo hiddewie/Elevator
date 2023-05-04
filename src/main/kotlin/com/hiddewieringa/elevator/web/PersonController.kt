@@ -20,7 +20,7 @@ import java.util.UUID
 @RequestMapping("/person")
 class PersonController @Autowired constructor(
     private val commandGateway: CommandGateway,
-    private val queryGateway: QueryGateway
+    private val queryGateway: QueryGateway,
 ) {
 
     @RequestMapping("/arrive/{floor}/{requestedFloor}")
@@ -35,7 +35,7 @@ class PersonController @Autowired constructor(
         val queryResult = queryGateway.subscriptionQuery(
             AllQuery(),
             ResponseTypes.multipleInstancesOf(Person::class.java),
-            ResponseTypes.multipleInstancesOf(Person::class.java)
+            ResponseTypes.multipleInstancesOf(Person::class.java),
         )
 
         return Flux.create<List<Person>> { emitter ->
