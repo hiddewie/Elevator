@@ -1,8 +1,8 @@
 [versions]
 kotlin = "1.7.21"
 kotlinter = "3.10.0"
-spring-boot = "2.7.11"
-axon = "4.6.7"
+spring-boot = "3.0.6"
+axon = "4.7.4"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }

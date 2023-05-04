@@ -7,7 +7,7 @@ module com.hiddewieringa.elevator {
     requires spring.web;
     requires spring.beans;
     requires spring.context;
-    requires java.persistence;
+    requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires com.fasterxml.jackson.annotation;
     requires spring.data.commons;
