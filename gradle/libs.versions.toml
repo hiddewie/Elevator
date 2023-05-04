@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.7.21"
 kotlinter = "3.10.0"
-spring-boot = "2.6.14"
+spring-boot = "2.7.11"
 axon = "4.6.7"
 
 [libraries]
