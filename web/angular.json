@@ -94,7 +94,6 @@
       }
     }
   },
-  "defaultProject": "web",
   "cli": {
     "analytics": false
   }
