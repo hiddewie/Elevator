@@ -27,7 +27,7 @@
     "@angular/cli": "~16.2.4",
     "@angular/compiler-cli": "~16.0.4",
     "@angular/language-service": "~16.2.7",
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.8.0",
     "typescript": "~5.0.4"
   }
 }
